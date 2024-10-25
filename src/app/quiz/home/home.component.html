@@ -1,0 +1,33 @@
+<div class="container mx-auto py-5 space-y-10">
+  <app-quiz-header></app-quiz-header>
+
+  <!-- Quiz Question Title -->
+  <div
+    class="relative bg-gradient-to-tr from-orange-50 to-orange-200 rounded-3xl max-w-5xl mx-auto outline-2 outline-dashed outline-orange-500 outline-offset-4 mt-5"
+  >
+    <p class="text-center text-slate-950 text-3xl py-5 px-3">
+      Quel est le nom du premier directeur de Fraternité Matin de 2021 jusqu'à
+      ce jour ?
+    </p>
+    <div
+      class="absolute -top-7 left-0 right-0 mx-auto bg-green-800 w-fit px-4 text-xl py-2 rounded-full ring-4 ring-orange-50"
+    >
+      Question 1/10
+    </div>
+  </div>
+
+  <!-- Quiz Question answers -->
+  <div class="max-w-4xl mx-auto grid grid-rows-1 space-y-5">
+    <app-option-card label="Moussogbiningni"></app-option-card>
+    <app-option-card label="Serge Abel Nouho"></app-option-card>
+    <app-option-card label="Mathias Datté"></app-option-card>
+    <app-option-card label="Venance Konan"></app-option-card>
+  </div>
+
+  <div class="max-w-4xl mx-auto">
+    <div class="flex flex-row justify-between items-center">
+      <app-button variant="neutral" label="Précédent"></app-button>
+      <app-button label="Suivant"></app-button>
+    </div>
+  </div>
+</div>

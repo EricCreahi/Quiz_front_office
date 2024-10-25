@@ -1,1 +1,31 @@
-/* You can add global styles to this file, and also import other style files */
+@import "@fontsource/bangers/index.css";
+@import "@fontsource-variable/montserrat/index.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* background: rgb(10, 31, 0, 0.1), url("assets/bg_main.webp") no-repeat; */
+  font-family: "Bangers", system-ui, sans-serif;
+
+  color: white;
+  --primary-color: rgb(10, 31, 0);
+}
+
+* {
+  cursor: url("assets/fm-cursor.png"), auto;
+}
+
+body {
+  background: linear-gradient(rgb(10, 31, 0, 0.9), rgb(10, 31, 0)),
+    url("assets/bg_main.webp") no-repeat center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  box-sizing: border-box;
+}
+
+.font-mont {
+  font-family: "Montserrat Variable", sans-serif;
+}
