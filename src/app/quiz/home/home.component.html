@@ -6,28 +6,48 @@
     class="relative bg-gradient-to-tr from-orange-50 to-orange-200 rounded-3xl max-w-5xl mx-auto outline-2 outline-dashed outline-orange-500 outline-offset-4 mt-5"
   >
     <p class="text-center text-slate-950 text-3xl py-5 px-3">
-      Quel est le nom du premier directeur de Fraternité Matin de 2021 jusqu'à
-      ce jour ?
+      {{ currentQuiz.questions[currentQuestionIndex].label }}
     </p>
     <div
       class="absolute -top-7 left-0 right-0 mx-auto bg-green-800 w-fit px-4 text-xl py-2 rounded-full ring-4 ring-orange-50"
     >
-      Question 1/10
+      Question {{ currentQuestionIndex + 1 }}/10
     </div>
   </div>
 
   <!-- Quiz Question answers -->
   <div class="max-w-4xl mx-auto grid grid-rows-1 space-y-5">
-    <app-option-card label="Moussogbiningni"></app-option-card>
-    <app-option-card label="Serge Abel Nouho"></app-option-card>
-    <app-option-card label="Mathias Datté"></app-option-card>
-    <app-option-card label="Venance Konan"></app-option-card>
+    @for (question of currentQuiz.questions[currentQuestionIndex].options; track
+    $index) {
+    <app-option-card
+      [label]="question.label"
+      [isChecked]="userChoices[currentQuestionIndex] === question.id"
+      (optionSelected)="onOptionSelected(question.id)"
+      >></app-option-card
+    >
+    }
   </div>
-
   <div class="max-w-4xl mx-auto">
-    <div class="flex flex-row justify-between items-center">
-      <app-button variant="neutral" label="Précédent"></app-button>
-      <app-button label="Suivant"></app-button>
+    <div
+      class="flex flex-row items-center"
+      [ngClass]="{
+        'justify-end': currentQuestionIndex == 0,
+        'justify-between': currentQuestionIndex > 0,
+        'justify-start': currentQuestionIndex < 9
+      }"
+    >
+      <app-button
+        *ngIf="currentQuestionIndex > 0"
+        variant="neutral"
+        label="Précédent"
+        (onClick)="handlePrev()"
+      ></app-button>
+      <app-button
+        [disabled]="userChoices[currentQuestionIndex] == null"
+        *ngIf="currentQuestionIndex < 9"
+        label="Suivant"
+        (onClick)="handleNext()"
+      ></app-button>
     </div>
   </div>
 </div>

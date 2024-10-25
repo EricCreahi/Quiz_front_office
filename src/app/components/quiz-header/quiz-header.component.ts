@@ -14,7 +14,5 @@ export class QuizHeaderComponent {
 
   constructor(private store: Store) {
     this.authUser$ = this.store.select(selectUser);
-
-    console.log(this.store.select(selectUser));
   }
 }
