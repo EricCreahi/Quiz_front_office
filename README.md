@@ -10,7 +10,7 @@
 A l'occasion de la célébration des 60 ans de Fraternité matin, La direction à décidé de marquer le coup et de faire plaisir a ses collaborateurs en organisant des jeux et activités, ouverts non seulement aux collaborateurs internes mais aux partenaires et clients externe
 ## Tech Stack
 
-**Client:** Angular, Ngrx, TailwindCSS
+**Client:** Angular 18.2.7, Ngrx, TailwindCSS
 
 
 ## Demarrer en Local
