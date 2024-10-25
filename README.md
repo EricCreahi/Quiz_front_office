@@ -1,27 +1,55 @@
-# FratmatAnnivQuiz
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.7.
+![Logo](https://www.fratmat.info/theme_fratmat/images/logo.png)
 
-## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+![App Screenshot](https://i.ibb.co/kM3qmrX/image.png)
 
-## Code scaffolding
+# QUIZ FRATERNITE MATIN
+#### **Description du projet**
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+A l'occasion de la célébration des 60 ans de Fraternité matin, La direction à décidé de marquer le coup et de faire plaisir a ses collaborateurs en organisant des jeux et activités, ouverts non seulement aux collaborateurs internes mais aux partenaires et clients externe
+## Tech Stack
 
-## Build
+**Client:** Angular, Ngrx, TailwindCSS
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
+## Demarrer en Local
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Clone the project
 
-## Running end-to-end tests
+```bash
+  git clone https://github.com/EricCreahi/Quiz_front_office
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Go to the project directory
 
-## Further help
+```bash
+  cd Quiz_front_office
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Installation des dépendances
+
+```bash
+  npm install
+```
+
+Demarrer le serveur
+
+```bash
+  ng serve -o
+```
+
+
+## Equipe Technique
+**DSI - Etudes et Developpement**
+- [@EricCreahi](https://github.com/EricCreahi)
+- [@nvalyfofana22](https://github.com/nvalyfofana22)
+- [@Wilfried0924](https://github.com/Wilfried0924)
+
+
+## Badges
+
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
+[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
+[![AGPL License](https://img.shields.io/badge/license-AGPL-blue.svg)](http://www.gnu.org/licenses/agpl-3.0)
+
