@@ -1,3 +1,5 @@
+import { OverlayModule } from '@angular/cdk/overlay';
+import { NgOptimizedImage } from '@angular/common';
 import {
   APP_INITIALIZER,
   ApplicationConfig,
@@ -5,14 +7,13 @@ import {
   provideZoneChangeDetection,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
-
-import { routes } from './app.routes';
-import { LocalStorageService } from './shared/service/localstorage.service';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { authReducer } from './shared/store/reducers/auth.reducers';
+import { routes } from './app.routes';
+import { LocalStorageService } from './shared/service/localstorage.service';
 import { StatePersistService } from './shared/service/state-persist.service';
-import { NgOptimizedImage } from '@angular/common';
+import { authReducer } from './shared/store/reducers/auth.reducers';
+import { PortalModule } from '@angular/cdk/portal';
 
 export function loadState() {
   return () => {
@@ -34,6 +35,7 @@ export const appConfig: ApplicationConfig = {
       })
     ),
     importProvidersFrom(NgOptimizedImage),
+    importProvidersFrom(OverlayModule),
     StatePersistService,
   ],
 };

@@ -1,4 +1,4 @@
-<div class="container mx-auto py-5 space-y-10">
+<div class="container max-w-6xl mx-auto py-5 space-y-10">
   <app-quiz-header></app-quiz-header>
 
   <!-- Quiz Question Title -->
@@ -44,9 +44,9 @@
       ></app-button>
       <app-button
         [disabled]="userChoices[currentQuestionIndex] == null"
-        *ngIf="currentQuestionIndex < 9"
-        label="Suivant"
-        (onClick)="handleNext()"
+        *ngIf="currentQuestionIndex <= 9"
+        [label]="currentQuestionIndex != 9 ? 'Suivant' : 'Valider le quiz'"
+        (onClick)=" currentQuestionIndex != 9 ? handleNext() : handleValdateQuiz()"
       ></app-button>
     </div>
   </div>

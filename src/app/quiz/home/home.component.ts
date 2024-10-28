@@ -35,6 +35,10 @@ export class HomeComponent {
       this.currentQuestionIndex = this.currentQuestionIndex + 1;
     }
   }
+ 
+  handleValdateQuiz(): void {
+   
+  }
 
   shuffleChoices(options: Array<QuestionOption>) {
     return shuffleOptions(options);

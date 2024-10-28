@@ -1,5 +1,6 @@
 @import "@fontsource/bangers/index.css";
 @import "@fontsource-variable/montserrat/index.css";
+@import "@angular/cdk/overlay-prebuilt.css";
 
 @tailwind base;
 @tailwind components;
@@ -24,8 +25,18 @@ body {
   background-repeat: no-repeat;
   height: 100vh;
   box-sizing: border-box;
+  margin: 0px; overflow-x: hidden;
 }
 
 .font-mont {
   font-family: "Montserrat Variable", sans-serif;
+}
+
+.cdk-overlay-dark-backdrop {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.modal-panel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

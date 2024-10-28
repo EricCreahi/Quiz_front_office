@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import JSConfetti from 'js-confetti';
 import { loginAction } from '../../shared/store/actions';
+import { ModalService } from '../../components/modal/modal.service';
+import { ComponentPortal } from '@angular/cdk/portal';
+import { CguComponent } from '../../components/cgu/cgu.component';
 
 @Component({
   selector: 'app-login',
@@ -20,10 +23,13 @@ export class LoginComponent implements OnInit {
   // Variables du formulaire de connexion
   loginForm: FormGroup;
 
+  portal = new ComponentPortal(CguComponent);
+
   constructor(
     private router: Router,
     private store: Store,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private modalService: ModalService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -44,6 +50,7 @@ export class LoginComponent implements OnInit {
         confettiNumber: 500,
       });
     }, 5000);
+    this.modalService.open(this.portal);
   }
 
   ngOnDestroy(): void {
