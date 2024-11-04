@@ -1,53 +1,8 @@
-<div class="container max-w-6xl mx-auto py-5 space-y-10">
-  <app-quiz-header></app-quiz-header>
-
-  <!-- Quiz Question Title -->
-  <div
-    class="relative bg-gradient-to-tr from-orange-50 to-orange-200 rounded-3xl max-w-5xl mx-auto outline-2 outline-dashed outline-orange-500 outline-offset-4 mt-5"
-  >
-    <p class="text-center text-slate-950 text-3xl py-5 px-3">
-      {{ currentQuiz.questions[currentQuestionIndex].label }}
-    </p>
-    <div
-      class="absolute -top-7 left-0 right-0 mx-auto bg-green-800 w-fit px-4 text-xl py-2 rounded-full ring-4 ring-orange-50"
-    >
-      Question {{ currentQuestionIndex + 1 }}/10
-    </div>
-  </div>
-
-  <!-- Quiz Question answers -->
-  <div class="max-w-4xl mx-auto grid grid-rows-1 space-y-5">
-    @for (question of currentQuiz.questions[currentQuestionIndex].options; track
-    $index) {
-    <app-option-card
-      [label]="question.label"
-      [isChecked]="userChoices[currentQuestionIndex] === question.id"
-      (optionSelected)="onOptionSelected(question.id)"
-      >></app-option-card
-    >
-    }
-  </div>
-  <div class="max-w-4xl mx-auto">
-    <div
-      class="flex flex-row items-center"
-      [ngClass]="{
-        'justify-end': currentQuestionIndex == 0,
-        'justify-between': currentQuestionIndex > 0,
-        'justify-start': currentQuestionIndex < 9
-      }"
-    >
-      <app-button
-        *ngIf="currentQuestionIndex > 0"
-        variant="neutral"
-        label="Précédent"
-        (onClick)="handlePrev()"
-      ></app-button>
-      <app-button
-        [disabled]="userChoices[currentQuestionIndex] == null"
-        *ngIf="currentQuestionIndex <= 9"
-        [label]="currentQuestionIndex != 9 ? 'Suivant' : 'Valider le quiz'"
-        (onClick)=" currentQuestionIndex != 9 ? handleNext() : handleValdateQuiz()"
-      ></app-button>
-    </div>
-  </div>
+<div class="container max-w-6xl mx-auto px-6 lg:px-0 py-5 space-y-5">
+  @switch (currentView) {
+    @case ("HOME") { <app-quiz-intro (navigate)="navigateTo($event)"></app-quiz-intro> }
+    @case ("CHALLENGE") { <app-quiz-challenge (navigate)="navigateTo($event)"></app-quiz-challenge> }
+    @case ("RESULT") { <app-quiz-result (navigate)="navigateTo($event)"></app-quiz-result> }
+    @default { <app-quiz-intro (navigate)="navigateTo($event)"></app-quiz-intro> }
+  }
 </div>

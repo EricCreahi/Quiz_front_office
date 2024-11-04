@@ -1,5 +1,5 @@
 <button
-  class="w-full row-span-1 text-slate-950 -skew-x-12 flex flex-row text-3xl transform hover:translate-x-1 group transition-all ease-in-out"
+  class="w-full row-span-1 text-slate-950 -skew-x-12 flex flex-row text-xl lg:text-3xl transform hover:translate-x-1 group transition-all ease-in-out items-stretch"
   [ngClass]="{
     'bg-green-500 hover:bg-green-500': isChecked,
     'bg-white hover:bg-gray-300': !isChecked,
@@ -7,7 +7,7 @@
   (click)="selectOption()"
 >
   <div
-    class="bg-gray-400 text-white h-14 w-14 px-3 py-3"
+    class="bg-gray-400 text-white w-14 px-3 py-3"
     [ngClass]="{
     'bg-green-500': isChecked,
     'bg-gray-400': !isChecked,
@@ -15,7 +15,7 @@
   >
     <input
       type="checkbox"
-      class="option-card border-none outline-none w-full h-full appearance-none bg-white m-0 ring-4 ring-black transform before:content-[''] before:w-7 before:h-6 before:bg-orange-500 before:scale-0 grid place-content-center checked:before:scale-100 before:transition-all before:ease-in-out before:cli"
+      class="option-card border-none outline-none w-full appearance-none bg-white m-0 ring-4 ring-black transform before:content-[''] before:w-7 before:h-6 before:bg-orange-500 before:scale-0 grid place-content-center checked:before:scale-100 before:transition-all before:ease-in-out before:cli"
       [checked]="isChecked"
       (change)="toggleCheck()"
       [disabled]="isChecked"

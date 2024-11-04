@@ -1,5 +1,5 @@
 <!-- Quiz header -->
-<div class="container">
+<div class="container mx-auto">
   <div class="flex flex-row justify-between">
     <div><img src="LOGO-60ANS.png" class="h-20" alt="logo-60" /></div>
 
@@ -8,15 +8,15 @@
       <img
         src="https://avatar.iran.liara.run/public/boy"
         alt="user_avatar"
-        class="h-14 w-14 rounded-full ring-4 ring-white ring-offset-2"
+        class="h-10 w-10 lg:h-14 lg:w-14 rounded-full ring-4 ringgradi ring-white ring-offset-2"
       />
       <div class="textora">
         <div class="text-3xl">
           {{ (authUser$ | async)?.nom }} {{ (authUser$ | async)?.prenoms }}
         </div>
-        <p class="px-2 bg-orange-500 w-fit -skew-x-12 tracking-wider">
+        <!-- <p class="px-2 bg-orange-500 w-fit -skew-x-12 tracking-wider">
           1250 points
-        </p>
+        </p> -->
       </div>
     </div>
   </div>

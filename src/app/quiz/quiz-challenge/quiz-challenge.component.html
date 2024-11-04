@@ -1,0 +1,90 @@
+<div class="container max-w-6xl mx-auto px-6 lg:px-0 py-5 space-y-5">
+  <app-quiz-header></app-quiz-header>
+
+  <!-- progress and title -->
+  <div class="max-w-4xl mx-auto text-center relative">
+    <p class="font-mont font-bold mb-1">
+      Question {{ currentQuestionIndex + 1 }} / 10
+    </p>
+    <div
+      class="flex flex-row space-x-1 mx-auto w-auto justify-center items-center"
+    >
+      @for (question of currentQuiz.questions; track $index) {
+      <div
+        class="w-10 h-1 transform -skew-x-12"
+        [ngClass]="{
+              'bg-orange-500 h-4 shadow-orange-500 shadow-sm relative': $index == currentQuestionIndex,
+              'bg-green-500 h-3': $index <= currentQuestionIndex,
+              'bg-white': $index > currentQuestionIndex,
+            }"
+      >
+        <!-- <div
+              class="absolute -top-6 left-0 right-0 text-white text-xl"
+              [ngClass]="{ hidden: $index != currentQuestionIndex }"
+            >
+              {{ currentQuestionIndex + 1 }}
+            </div> -->
+      </div>
+      }
+    </div>
+    <div
+      class="animate-bounce bg-green-800 absolute -top-20 left-0 right-0 transition-all ease-in rounded-full ring-4 ring-white h-16 w-16 place-content-center place-self-center"
+    >
+      <h1 *ngIf="countdown$ | async as remainingTime" class="text-3xl">
+        {{ remainingTime }} s
+      </h1>
+    </div>
+  </div>
+
+  <!-- Quiz Question Title -->
+  <div
+    class="relative bg-gradient-to-tr from-orange-50 to-orange-200 rounded-3xl max-w-4xl mx-auto outline-2 outline-dashed outline-orange-500 outline-offset-4"
+  >
+    <p class="text-center text-slate-950 text-xl lg:text-3xl py-5 px-3">
+      {{ currentQuiz.questions[currentQuestionIndex].label }}
+    </p>
+  </div>
+
+  <!-- Quiz Question answers -->
+  <div class="max-w-4xl mx-auto grid grid-rows-1 space-y-5">
+    @for (question of currentQuiz.questions[currentQuestionIndex].options; track
+    $index) {
+    <app-option-card
+      [label]="question.label"
+      [isChecked]="userChoices[currentQuestionIndex] === question.id"
+      (optionSelected)="onOptionSelected(question.id)"
+    ></app-option-card>
+    }
+    
+  </div>
+
+  <!-- Quiz actions -->
+  <div class="max-w-4xl mx-auto">
+    <div
+      class="flex flex-row items-center"
+      [ngClass]="{
+        'justify-end': currentQuestionIndex == 0,
+        'justify-between': currentQuestionIndex > 0,
+        'justify-start': currentQuestionIndex < 9
+      }"
+    >
+      <app-button
+        *ngIf="currentQuestionIndex > 0"
+        variant="neutral"
+        label="Précédent"
+        (onClick)="handlePrev()"
+      ></app-button>
+      <app-button
+        [disabled]="userChoices[currentQuestionIndex] == null"
+        *ngIf="currentQuestionIndex <= 9"
+        [label]="currentQuestionIndex != 9 ? 'Suivant' : 'Valider le quiz'"
+        (onClick)="
+          currentQuestionIndex != 9 ? handleNext() : handleValdateQuiz()
+        "
+      ></app-button>
+    </div>
+  </div>
+
+  <!--Quiz Result -->
+  <div *ngIf="showResults == true"></div>
+</div>

@@ -9,11 +9,11 @@ import {
 import { provideRouter } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { provideLottieOptions } from 'ngx-lottie';
 import { routes } from './app.routes';
 import { LocalStorageService } from './shared/service/localstorage.service';
 import { StatePersistService } from './shared/service/state-persist.service';
 import { authReducer } from './shared/store/reducers/auth.reducers';
-import { PortalModule } from '@angular/cdk/portal';
 
 export function loadState() {
   return () => {
@@ -36,6 +36,9 @@ export const appConfig: ApplicationConfig = {
     ),
     importProvidersFrom(NgOptimizedImage),
     importProvidersFrom(OverlayModule),
+    provideLottieOptions({
+      player: () => import('lottie-web'),
+    }),
     StatePersistService,
   ],
 };

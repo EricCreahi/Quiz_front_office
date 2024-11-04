@@ -10,30 +10,38 @@
           </p>
         </div>
 
-        <div class="flex flex-col space-y-8 text-center">
+        <div class="flex flex-col space-y-4 text-center">
           <app-input
+            id="nom"
+            label="Votre nom"
             size="large"
-            placeholder="Votre nom"
+            placeholder="Saisissez votre nom"
             [block]="true"
           ></app-input>
           <app-input
+            id="prenoms"
+            label="Votre prénom"
             size="large"
-            placeholder="Votre prénom"
+            placeholder="Saisissez votre prénom"
             [block]="true"
           ></app-input>
           <app-input
+            id="telephone"
+            label="Votre téléphone"
             size="large"
-            placeholder="Téléphone"
+            placeholder="Saisissez votre téléphone"
             [block]="true"
             type="tel"
           >
           </app-input>
-          <!-- <app-input
+          <app-input
+            id="mot de passe"
+            label="Votre mot de passe"
             size="large"
             placeholder="Entrez votre mot de passe"
             [block]="true"
             type="password"
-          ></app-input> -->
+          ></app-input>
 
           <div class="space-x-4">
             <app-button

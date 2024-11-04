@@ -1,0 +1,18 @@
+<div class="container max-w-6xl mx-auto px-6 lg:px-0 py-5 space-y-5">
+  <app-quiz-header></app-quiz-header>
+
+  <div class="">
+    <div
+      class="text-center outline-dashed outline-offset-8 text-xl lg:text-5xl text-clip bg-green-500 w-fit mx-auto px-8 transform -skew-x-12"
+    >
+      Résultat du quiz
+    </div>
+    <ng-lottie
+      width="600px"
+      height="500px"
+      containerClass="moving-box another-class"
+      [options]="options"
+      (animationCreated)="animationCreated($event)"
+    />
+  </div>
+</div>
