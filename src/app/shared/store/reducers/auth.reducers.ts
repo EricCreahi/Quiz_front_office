@@ -5,9 +5,9 @@ import { loginAction, logoutAction } from '../actions';
 export const authReducer = createReducer(
   initialAuthState,
   // Connexion
-  on(loginAction, (state: AuthState, { email }) => ({
+  on(loginAction, (state: AuthState, { matricule }) => ({
     ...state,
-    email,
+    matricule,
     loggedIn: true,
   })),
   // Deconnexion

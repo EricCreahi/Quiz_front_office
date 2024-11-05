@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
     private modalService: ModalService
   ) {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      matricule: ['', [Validators.required]],
       password: ['', [Validators.required]],
     });
   }
@@ -64,7 +64,7 @@ export class LoginComponent implements OnInit {
       // Connexion au backend pour vérification
       this.store.dispatch(
         loginAction({
-          email: this.loginForm.value.email,
+          matricule: this.loginForm.value.matricule,
           nom: 'Yoro',
           prenoms: 'Wilfried',
         })
