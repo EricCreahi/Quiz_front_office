@@ -26,11 +26,13 @@
         <app-button
           variant="secondary"
           label="Je suis prêt, c'est parti !!!"
+          [disabled]="isLoadingQuestionsCocher || isLoadingQuestionsTampon"
           (click)="switchToCountDown()"
         ></app-button>
         <app-button
           variant="danger"
           label="Quitter"
+          [disabled]="isLoadingQuestionsCocher || isLoadingQuestionsTampon"
           (click)="handleLogout()"
         ></app-button>
       </div>

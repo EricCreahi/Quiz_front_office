@@ -3,8 +3,16 @@ import { Router } from '@angular/router';
 import JSConfetti from 'js-confetti';
 import { AnimationItem } from 'lottie-web';
 import { AnimationOptions, BMCompleteEvent } from 'ngx-lottie';
-import { QuizView, Utilisateur } from '../../shared/models';
+import {
+  QuizView,
+  Response,
+  TamponCocher,
+  Utilisateur,
+} from '../../shared/models';
 import { LocalStorageService } from '../../shared/service/localstorage.service';
+import { QuestionService } from '../../shared/service/question.service';
+import { ToastrService } from 'ngx-toastr';
+import { createObserver } from '../../shared/utils/observer';
 
 @Component({
   selector: 'app-quiz-intro',
@@ -19,14 +27,24 @@ export class QuizIntroComponent {
   interval!: ReturnType<typeof setInterval>;
   @Output() navigate = new EventEmitter<QuizView>();
   showCountdown: boolean = false;
+  user: Utilisateur;
+  isLoadingQuestionsCocher: boolean = false;
+  isLoadingQuestionsTampon: boolean = false;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private questionService: QuestionService,
+    private toastr: ToastrService
+  ) {
+    this.user = LocalStorageService.getItem('auth');
+  }
 
   ngOnInit(): void {
-    const user: Utilisateur = LocalStorageService.getItem('auth');
     // On vérifie si l'utilisateur est déjà connecté
-    if (user == undefined) {
+    if (this.user == undefined) {
       this.navigateToRoute('/');
+    } else {
+      this.checkQuestionsCocher();
     }
 
     this.jsConfetti.addConfetti({
@@ -65,7 +83,7 @@ export class QuizIntroComponent {
   };
 
   animationCreated(animationItem: AnimationItem): void {
-    console.log(animationItem);
+    // console.log(animationItem);
   }
 
   onComplete(event: BMCompleteEvent): void {
@@ -81,5 +99,55 @@ export class QuizIntroComponent {
 
   navigateToRoute(route: string): void {
     this.router.navigate([route]);
+  }
+
+  checkQuestionsCocher() {
+    this.isLoadingQuestionsCocher = true;
+    const observer = createObserver<Response<TamponCocher>>(
+      (res) => {
+        this.isLoadingQuestionsCocher = false;
+        if (res.status === 'succes') {
+          if (res.nbreData < 10) {
+            // On vérifie les questions non répondues
+            this.checkQuestionsTampon();
+          } else {
+            // Toutes les questions on été répondues
+          }
+          // LocalStorageService.setItem('questions', res.data);
+        } else {
+          this.toastr.error(String(res.message), 'Erreur!');
+        }
+      },
+      (error) => {
+        this.toastr.error(error.message, 'Une erreur est survenue!');
+        this.isLoadingQuestionsCocher = false;
+      }
+    );
+
+    this.questionService
+      .getListeCocherByMatricule(this.user.usermatricule)
+      .subscribe(observer);
+  }
+
+  checkQuestionsTampon() {
+    this.isLoadingQuestionsTampon = true;
+    const observer = createObserver<Response<TamponCocher>>(
+      (res) => {
+        this.isLoadingQuestionsTampon = false;
+        if (res.status === 'succes') {
+          LocalStorageService.setItem('questions', res.data);
+        } else {
+          this.toastr.error(String(res.message), 'Erreur!');
+        }
+      },
+      (error) => {
+        this.toastr.error(error.message, 'Une erreur est survenue!');
+        this.isLoadingQuestionsTampon = false;
+      }
+    );
+
+    this.questionService
+      .getListeTamponByMatricule(this.user.usermatricule)
+      .subscribe(observer);
   }
 }

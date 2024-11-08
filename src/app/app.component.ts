@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Howl, Howler } from 'howler';
-import { QuestionService } from './shared/service/question.service';
-import { Question, Response } from './shared/models';
-import { createObserver } from './shared/utils/observer';
-import { LocalStorageService } from './shared/service/localstorage.service';
+import { Howl } from 'howler';
 import { ToastrService } from 'ngx-toastr';
+import { Question, Response } from './shared/models';
+import { LocalStorageService } from './shared/service/localstorage.service';
+import { QuestionService } from './shared/service/question.service';
+import { createObserver } from './shared/utils/observer';
 
 @Component({
   selector: 'app-root',
@@ -42,8 +42,8 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   playSound() {
-    const audioContext = Howler.ctx;
-    console.log(Howler.ctx);
+    // const audioContext = Howler.ctx;
+    // console.log(Howler.ctx);
     if (this.sound.playing() === false) {
       // Joue directement si l'AudioContext est déjà actif
       this.sound.play();
@@ -71,7 +71,7 @@ export class AppComponent implements OnInit, OnDestroy {
         if (res.status === 'succes') {
           LocalStorageService.setItem('questions', res.data);
         } else {
-          this.toastr.error(String(res.message), 'Erreur de connexion!');
+          this.toastr.error(String(res.message), 'Erreur!');
         }
       },
       (error) => {

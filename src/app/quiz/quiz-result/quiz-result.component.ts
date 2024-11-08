@@ -16,7 +16,7 @@ export class QuizResultComponent {
   };
 
   animationCreated(animationItem: AnimationItem): void {
-    console.log(animationItem);
+    // console.log(animationItem);
   }
 
   navigateToView(view: QuizView) {

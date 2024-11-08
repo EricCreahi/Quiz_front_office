@@ -8,7 +8,6 @@ export function createObserver<T>(
 ): Observer<T> {
   return {
     next: (response: T) => {
-      console.log('Observer next:', response);
       onSuccess(response);
     },
     error: (error: HttpErrorResponse) => {

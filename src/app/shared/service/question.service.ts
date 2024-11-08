@@ -31,7 +31,7 @@ export class QuestionService {
     matricule: string
   ): Observable<Response<TamponCocher>> {
     return this.api.GET<Response<TamponCocher>>(
-      `${this.API_URL}CocherTampon/listeTamponCochers/${matricule}`
+      `${this.API_URL}Home/listeCochers/${matricule}`
     );
   }
 }
