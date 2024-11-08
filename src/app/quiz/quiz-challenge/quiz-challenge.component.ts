@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { selectRandomQuiz, shuffleOptions } from '../../shared/utils/common';
+import { shuffleOptions } from '../../shared/utils/common';
 import {
   Question,
   Questionnaire,
@@ -26,15 +26,15 @@ export class QuizChallengeComponent {
 
   ngOnInit() {
     // Mélanger les questions
-    const shuffledQuestions = this.shuffleQuestions(
-      selectRandomQuiz().questions.map((opt) => ({
-        ...opt,
-        options: shuffleOptions(opt.options),
-      }))
-    );
-    this.currentQuiz = { ...selectRandomQuiz(), questions: shuffledQuestions };
-    this.correctChoices = shuffledQuestions.map((q) => q.correctAnswerId);
-    this.startCountdown(91);
+    // const shuffledQuestions = this.shuffleQuestions(
+    //   selectRandomQuiz().questions.map((opt) => ({
+    //     ...opt,
+    //     options: shuffleOptions(opt.options),
+    //   }))
+    // );
+    // this.currentQuiz = { ...selectRandomQuiz(), questions: shuffledQuestions };
+    // this.correctChoices = shuffledQuestions.map((q) => q.correctAnswerId);
+    // this.startCountdown(91);
   }
 
   handlePrev(): void {

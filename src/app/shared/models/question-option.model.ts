@@ -1,5 +1,7 @@
 export type QuestionOption = {
-  id: number;
-  label: string;
-  questionId: number; // Identifiant de la question
+  choixId: number;
+  libelle_Choix: string;
+  estVisible: boolean;
+  sousQuestionId: number;
+  note: number;
 };

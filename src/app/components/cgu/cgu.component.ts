@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ModalService } from '../modal/modal.service';
+import { LocalStorageService } from '../../shared/service/localstorage.service';
 
 @Component({
   selector: 'app-cgu',
@@ -12,5 +13,6 @@ export class CguComponent {
   handleAcceptCgu() {
     //TODO: update State for Reading CGU
     this.modalService.close();
+    LocalStorageService.setItem('cgu', true);
   }
 }

@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { mouseClik } from '../../shared/utils/sound';
 
 @Component({
   selector: 'app-option-card',
@@ -12,6 +13,7 @@ export class OptionCardComponent {
   @Output() optionSelected = new EventEmitter<void>();
 
   toggleCheck() {
+    mouseClik();
     this.optionSelected.emit();
   }
 

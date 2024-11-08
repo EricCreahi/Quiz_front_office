@@ -5,14 +5,18 @@
     <form [formGroup]="loginForm" (ngSubmit)="logInUser()">
       <div class="flex flex-col space-y-4 text-center">
         <app-input
-          id="email"
-          label="Adresse Email"
+          id="matricule"
+          label="Numéro Matricule"
           size="large"
-          placeholder="Entrez votre email"
+          placeholder="Entrez votre numéro matricule"
           [block]="true"
-          name="email"
-          formControlName="email"
+          name="matricule"
+          formControlName="matricule"
+          [isDisabled]="isLoading"
           [required]="true"
+          [errorMesage]="
+            isControlInvalid('matricule') ? 'Matricule obligatoire' : ''
+          "
         ></app-input>
         <app-input
           id="password"
@@ -23,39 +27,29 @@
           type="password"
           name="password"
           formControlName="password"
+          [isDisabled]="isLoading"
           [required]="true"
+          [errorMesage]="
+            isControlInvalid('password') ? 'Mot de passe obligatoire' : ''
+          "
         ></app-input>
         <div class="space-x-4">
           <app-button
             variant="secondary"
-            label="Se Connecter et commencer"
-            ty
-            (onClick)="logInUser()"
+            [label]="
+              isLoading ? 'Chargement....' : 'Se Connecter et commencer le quiz'
+            "
+            [disabled]="isLoading"
+            (onclick)="logInUser()"
           ></app-button>
-          <app-button
+          <!-- <app-button
             variant="primary"
             label="Créer un compte"
             routerLink="/auth/register"
-            (onClick)="navigateToRoute('/auth/register')"
-          ></app-button>
+            (onclick)="navigateToRoute('/auth/register')"
+          ></app-button> -->
         </div>
       </div>
     </form>
   </div>
 </div>
-
-
-<!-- <div class="mx-auto text-center">
-  <p class="text-7xl mx-auto text-center text-green-400">Authentification</p>
-  <p class="text-7xl mx-auto text-center text-orange-400">60 ans</p>
-  <div class="flex flex-row space-x-5 mx-auto w-full justify-center mb-7">
-    <app-button variant="secondary" label="Histoire de fratmat"></app-button>
-    <app-button label="Commencer le Quiz"></app-button>
-  </div>
-  <div class="flex flex-row space-x-5 mx-auto w-full justify-center mb-7">
-    <app-input size="small" placeholder="text"></app-input>
-    <app-input size="medium"></app-input>
-    <app-input size="large"></app-input>
-    <app-input type="date" size="large"></app-input>
-  </div>
-</div> -->

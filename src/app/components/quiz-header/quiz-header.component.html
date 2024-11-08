@@ -5,19 +5,20 @@
 
     <!-- User Infos -->
     <div class="flex flex-row items-center space-x-3">
+      <div class="flex flex-col items-end">
+        <div class="text-xl">
+          {{ user?.nom }}
+          {{ user?.prenoms }}
+        </div>
+        <div class="px-2 bg-orange-500 w-fit -skew-x-12 tracking-wider">
+          {{ user?.usermatricule }}
+        </div>
+      </div>
       <img
         src="https://avatar.iran.liara.run/public/boy"
         alt="user_avatar"
         class="h-10 w-10 lg:h-14 lg:w-14 rounded-full ring-4 ringgradi ring-white ring-offset-2"
       />
-      <div class="textora">
-        <div class="text-3xl">
-          {{ (authUser$ | async)?.nom }} {{ (authUser$ | async)?.prenoms }}
-        </div>
-        <!-- <p class="px-2 bg-orange-500 w-fit -skew-x-12 tracking-wider">
-          1250 points
-        </p> -->
-      </div>
     </div>
   </div>
 </div>

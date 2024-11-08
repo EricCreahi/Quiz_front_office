@@ -1,19 +1,22 @@
 import { OverlayModule } from '@angular/cdk/overlay';
 import { NgOptimizedImage } from '@angular/common';
 import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
+import {
   APP_INITIALIZER,
   ApplicationConfig,
   importProvidersFrom,
   provideZoneChangeDetection,
 } from '@angular/core';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { provideLottieOptions } from 'ngx-lottie';
+import { provideToastr } from 'ngx-toastr';
 import { routes } from './app.routes';
 import { LocalStorageService } from './shared/service/localstorage.service';
-import { StatePersistService } from './shared/service/state-persist.service';
-import { authReducer } from './shared/store/reducers/auth.reducers';
 
 export function loadState() {
   return () => {
@@ -24,21 +27,16 @@ export function loadState() {
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    { provide: APP_INITIALIZER, useFactory: loadState, multi: true },
+    provideHttpClient(withInterceptorsFromDi()),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    { provide: APP_INITIALIZER, useFactory: loadState, multi: true },
-    importProvidersFrom(StoreModule.forRoot({ user: authReducer })),
-    importProvidersFrom(
-      StoreDevtoolsModule.instrument({
-        maxAge: 25,
-        logOnly: false,
-      })
-    ),
     importProvidersFrom(NgOptimizedImage),
     importProvidersFrom(OverlayModule),
+    provideAnimations(),
+    provideToastr(),
     provideLottieOptions({
       player: () => import('lottie-web'),
     }),
-    StatePersistService,
   ],
 };

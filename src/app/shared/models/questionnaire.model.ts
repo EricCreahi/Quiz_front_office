@@ -1,9 +1,7 @@
-import { Question } from './question.model';
-
 export type Questionnaire = {
-  id: number;
-  label: string;
-  createdDate: string;
-  enabled: boolean;
-  questions: Array<Question>; // Liste des questions associées
+  questionnaireId: 0;
+  titre: 'string';
+  date_debut: '2024-11-08T09:10:51.256Z';
+  date_Fin: '2024-11-08T09:10:51.256Z';
+  estActif: true;
 };

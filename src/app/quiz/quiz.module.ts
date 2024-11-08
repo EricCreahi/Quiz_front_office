@@ -8,6 +8,7 @@ import { QuizChallengeComponent } from './quiz-challenge/quiz-challenge.componen
 import { QuizResultComponent } from './quiz-result/quiz-result.component';
 import { QuizIntroComponent } from './quiz-intro/quiz-intro.component';
 import { LottieComponent } from 'ngx-lottie';
+import { LocalStorageService } from '../shared/service/localstorage.service';
 
 @NgModule({
   declarations: [
@@ -18,5 +19,6 @@ import { LottieComponent } from 'ngx-lottie';
     QuizResultComponent,
   ],
   imports: [CommonModule, QuizRoutingModule, ComponentsModule, LottieComponent],
+  providers: [LocalStorageService],
 })
 export class QuizModule {}

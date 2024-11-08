@@ -47,9 +47,13 @@
             <app-button
               variant="primary"
               label="Créer mon compte et commencer"
-              (onClick)="handleNavigate('/quiz')"
+              (onclick)="handleNavigate('/quiz')"
             ></app-button>
-            <app-button variant="danger" label="Annuler"></app-button>
+            <app-button
+              variant="danger"
+              label="Annuler"
+              (onclick)="handleNavigate('/')"
+            ></app-button>
           </div>
         </div>
       </div>

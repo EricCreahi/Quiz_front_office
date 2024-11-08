@@ -1,1 +1,8 @@
+<button
+  id="music-btn"
+  (click)="playSound()"
+  class="h-12 w-12 rounded-full bg-orange-500 absolute left-2 bottom-2"
+>
+  {{ sound.playing() ? "Pause" : "play" }}
+</button>
 <router-outlet />

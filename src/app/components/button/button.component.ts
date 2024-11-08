@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { mouseClik } from '../../shared/utils/sound';
 
 type ButtonVariantType = 'primary' | 'secondary' | 'danger' | 'neutral';
 
@@ -13,11 +14,13 @@ export class ButtonComponent {
   @Input() label: string = 'Button';
   @Input() class!: string;
 
-  @Output() onClick = new EventEmitter<void>();
+  // @Output() click = new EventEmitter<void>();
 
-  handleClick(): void {
-    if (!this.disabled) {
-      this.onClick.emit(); // Émission de l'événement
-    }
-  }
+  // handleClick(): void {
+  //   if (!this.disabled) {
+  //     this.click.emit();
+  //     console.log('Click');
+  //     mouseClik();
+  //   }
+  // }
 }

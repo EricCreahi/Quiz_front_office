@@ -24,6 +24,8 @@ export class InputComponent {
   @Input() block: boolean = false;
   @Input() required: boolean = false;
   @Input() showLabel: boolean = true;
+  @Input() isDisabled: boolean = false;
+  @Input() errorMesage: string = '';
 
   @Output() onValueChange = new EventEmitter<string | number>();
 

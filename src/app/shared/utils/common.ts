@@ -1,18 +1,17 @@
-import { quizDB } from '../db';
-import { Question, Questionnaire, QuestionOption } from '../models';
+// import { quizDB } from '../db';
 
 function generateRandomNumber(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-export const selectRandomQuiz = (): Questionnaire => {
-  const quizId = generateRandomNumber(1, 8);
-  const questionnaire: Questionnaire = quizDB.find(
-    (q) => q.id == quizId
-  ) as Questionnaire;
+// export const selectRandomQuiz = (): Questionnaire => {
+//   const quizId = generateRandomNumber(1, 8);
+//   const questionnaire: Questionnaire = quizDB.find(
+//     (q) => q.id == quizId
+//   ) as Questionnaire;
 
-  return questionnaire;
-};
+//   return questionnaire;
+// };
 
 export function shuffleOptions<T>(array: T[]): T[] {
   for (let i = array.length - 1; i > 0; i--) {

@@ -1,18 +1,16 @@
-import { Component } from '@angular/core';
-import { AuthState } from '../../shared/models';
-import { Observable } from 'rxjs';
-import { Store } from '@ngrx/store';
-import { selectUser, selectUserState } from '../../shared/store/selectors';
+import { Component, OnInit } from '@angular/core';
+import { LocalStorageService } from '../../shared/service/localstorage.service';
+import { Utilisateur } from '../../shared/models';
 
 @Component({
   selector: 'app-quiz-header',
   templateUrl: './quiz-header.component.html',
   styleUrl: './quiz-header.component.css',
 })
-export class QuizHeaderComponent {
-  authUser$: Observable<AuthState | null>;
+export class QuizHeaderComponent implements OnInit {
+  user: Utilisateur | undefined;
 
-  constructor(private store: Store) {
-    this.authUser$ = this.store.select(selectUser);
+  ngOnInit(): void {
+    this.user = LocalStorageService.getItem('auth');
   }
 }

@@ -10,9 +10,16 @@
     'text-3xl':size ==='large',
     'w-full':block ===true,
   }"
+    [disabled]="isDisabled"
     [type]="type"
     [placeholder]="placeholder"
     (input)="onInput($event)"
     class="focus:outline-none transform -skew-x-12 text-black px-3 py-1 ring-2 ring-gray-700 ring-inset tracking-wider focus:ring-orange-500 hover:ring-orange-300 transition-all ease-in-out uppercase"
   />
+  <div
+    *ngIf="errorMesage !== ''"
+    class="bg-red-500 text-white w-full text-left text-sm transform -skew-x-12 px-2 font-mont"
+  >
+    {{ errorMesage }}
+  </div>
 </div>
