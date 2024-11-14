@@ -1,4 +1,9 @@
-export type StorageKeys = 'auth' | 'questions' | 'cgu';
+export type StorageKeys =
+  | 'auth'
+  | 'questions'
+  | 'cgu'
+  | 'liste-tampon'
+  | 'liste-cocher';
 export type QuizView = 'HOME' | 'CHALLENGE' | 'RESULT';
 
 export enum ResponseStatus {

@@ -1,5 +1,10 @@
-<canvas id="login_confetti" style="position: fixed; top: 0; left: 0"></canvas>
-<div class="container max-w-xl mx-auto h-screen">
+<canvas id="login_confetti" class="fixed top-0 left-0 right-0"></canvas>
+<ng-lottie
+  class="absolute left-0 right-0 top-0 -z-0"
+  containerClass="mx-auto my-0 h-screen"
+  [options]="ballonOptions"
+/>
+<div class="container max-w-xl mx-auto h-full">
   <div class="h-full flex flex-col justify-around">
     <app-header></app-header>
     <form [formGroup]="loginForm" (ngSubmit)="logInUser()">
@@ -36,11 +41,12 @@
         <div class="space-x-4">
           <app-button
             variant="secondary"
-            [label]="
-              isLoading ? 'Chargement....' : 'Se Connecter et commencer le quiz'
-            "
+            label="Se Connecter et commencer le quiz"
             [disabled]="isLoading"
             (onclick)="logInUser()"
+            iconName="scan-face"
+            [showIcon]="true"
+            [isLoading]="isLoading"
           ></app-button>
           <!-- <app-button
             variant="primary"

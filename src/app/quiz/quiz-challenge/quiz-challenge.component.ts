@@ -1,12 +1,20 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { shuffleOptions } from '../../shared/utils/common';
-import {
-  Question,
-  Questionnaire,
-  QuestionOption,
-  QuizView,
-} from '../../shared/models';
+import { ToastrService } from 'ngx-toastr';
 import { finalize, interval, map, Observable, takeWhile } from 'rxjs';
+import {
+  ChoixReponseReq,
+  ChoixReponseResponse,
+  Question,
+  QuizView,
+  Response,
+  TamponCocher,
+  UpdateChoixReponseReq,
+  Utilisateur,
+} from '../../shared/models';
+import { LocalStorageService } from '../../shared/service/localstorage.service';
+import { QuestionService } from '../../shared/service/question.service';
+import { selectQuestions } from '../../shared/utils/common';
+import { createObserver } from '../../shared/utils/observer';
 
 @Component({
   selector: 'app-quiz-challenge',
@@ -14,26 +22,30 @@ import { finalize, interval, map, Observable, takeWhile } from 'rxjs';
   styleUrl: './quiz-challenge.component.css',
 })
 export class QuizChallengeComponent {
-  currentQuiz!: Questionnaire;
   currentQuestionIndex: number = 0;
   userChoices: Array<number> = [];
-  correctChoices: Array<number> = [];
-  duration = 45; // 45 Secondes
+  answeredQuestions: Array<{ index: number; cocherTamponId: number }> = [];
   countdown$: Observable<number> | undefined;
   showResults: boolean = false;
+  isUpdatingChoice: boolean = false;
+  user: Utilisateur = LocalStorageService.getItem('auth');
+
+  //
+  questions: Array<Question> = LocalStorageService.getItem('questions');
+  questionsTamponCocher: Array<TamponCocher> =
+    LocalStorageService.getItem('liste-tampon');
+  questionsTamponsIds: Array<number> = [];
+  quizQuestions: Array<Question> = [];
 
   @Output() navigate = new EventEmitter<QuizView>();
 
+  constructor(
+    private questionService: QuestionService,
+    private toastr: ToastrService
+  ) {}
+
   ngOnInit() {
-    // Mélanger les questions
-    // const shuffledQuestions = this.shuffleQuestions(
-    //   selectRandomQuiz().questions.map((opt) => ({
-    //     ...opt,
-    //     options: shuffleOptions(opt.options),
-    //   }))
-    // );
-    // this.currentQuiz = { ...selectRandomQuiz(), questions: shuffledQuestions };
-    // this.correctChoices = shuffledQuestions.map((q) => q.correctAnswerId);
+    this.loadQuestions();
     // this.startCountdown(91);
   }
 
@@ -41,20 +53,16 @@ export class QuizChallengeComponent {
     if (this.currentQuestionIndex >= 1) {
       this.currentQuestionIndex = this.currentQuestionIndex - 1;
     }
+
+    console.log(this.answeredQuestions);
   }
 
   handleNext(): void {
-    if (this.currentQuestionIndex < 9) {
+    if (this.currentQuestionIndex < this.quizQuestions.length - 1) {
       this.currentQuestionIndex = this.currentQuestionIndex + 1;
+    } else {
+      this.handleValdateQuiz();
     }
-  }
-
-  shuffleChoices(options: Array<QuestionOption>) {
-    return shuffleOptions(options);
-  }
-
-  shuffleQuestions(questions: Array<Question>) {
-    return shuffleOptions(questions);
   }
 
   onOptionSelected(selectedIndex: number) {
@@ -75,5 +83,114 @@ export class QuizChallengeComponent {
 
   navigateToView(view: QuizView) {
     this.navigate.emit(view);
+  }
+
+  // Charger les questions à afficher
+  loadQuestions(): void {
+    // Id de toutes les questions tampons auquelles repondre
+    let idsQuestionsTamponsCocher: Array<number> = [];
+    let questionsTampon: Array<Question> = [];
+
+    // Récupération de toutes les questions tampon
+    this.questionsTamponCocher.map((qt) => {
+      idsQuestionsTamponsCocher.push(qt.sousQuestionId);
+
+      // // On récupère les IDs des réponses déjà sélectionnées
+      // this.userChoices.push(qt.choixId);
+    });
+
+    questionsTampon = this.questions.filter(
+      (q) => !idsQuestionsTamponsCocher.includes(q.sousQuestionId)
+    );
+
+    this.quizQuestions = selectQuestions(
+      this.questions,
+      10 - questionsTampon.length,
+      idsQuestionsTamponsCocher
+    );
+  }
+
+  // Valider le choix pour une question
+  validateQuestionChoice() {
+    this.isUpdatingChoice = true;
+    // console.log('Formulaire soumis', this.loginForm.value);
+    // Connexion au backend pour vérification
+    const observer = createObserver<Response<ChoixReponseResponse>>(
+      (res) => {
+        this.isUpdatingChoice = false;
+        if (res.status === 'succes') {
+          // this.navigateToRoute('/quiz');
+          // Mise à jour des questions actuelles déjà répondues
+          this.answeredQuestions.push({
+            cocherTamponId: Number(res.oneData?.cocherTamponId),
+            index: this.currentQuestionIndex, // Récupération de l'index de la question précédente
+          });
+
+          this.handleNext();
+        }
+      },
+      (error) => {
+        this.toastr.error(error.message, 'Une erreur est survenue!');
+        this.isUpdatingChoice = false;
+      },
+      () => {
+        this.isUpdatingChoice = false;
+      }
+    );
+
+    const choiceData: ChoixReponseReq = {
+      choixId: this.userChoices[this.currentQuestionIndex],
+      date_Cocher: new Date().toISOString(),
+      matricule: this.user.usermatricule,
+      position:
+        this.questionsTamponCocher.length + this.currentQuestionIndex + 1,
+    };
+
+    this.questionService.choixReponseQuestion(choiceData).subscribe(observer);
+  }
+
+  // mettre à jour le choix d'une question déjà répondu
+  updateQuestionChoice() {
+    this.isUpdatingChoice = true;
+    // console.log('Formulaire soumis', this.loginForm.value);
+    // Connexion au backend pour vérification
+    const observer = createObserver<Response<void>>(
+      (res) => {
+        this.isUpdatingChoice = false;
+        if (res.status === 'succes') {
+          this.handleNext();
+          // this.navigateToRoute('/quiz');
+          // Mise à jour des questions actuelles déjà répondues
+        }
+      },
+      (error) => {
+        this.toastr.error(error.message, 'Une erreur est survenue!');
+        this.isUpdatingChoice = false;
+      },
+      () => {
+        this.isUpdatingChoice = false;
+      }
+    );
+
+    const newChoiceData: UpdateChoixReponseReq = {
+      choixId: this.userChoices[this.currentQuestionIndex],
+      cocherTamponId:
+        this.answeredQuestions[this.currentQuestionIndex].cocherTamponId,
+    };
+
+    this.questionService
+      .updateChoixReponseQuestion(
+        newChoiceData.choixId,
+        newChoiceData.cocherTamponId
+      )
+      .subscribe(observer);
+  }
+
+  // Vérifier qu'on a déjà repondu à une question et
+  checkIfAlreadyAnswered(index: number): boolean {
+    if (this.answeredQuestions.find((item) => item.index === index)) {
+      return true;
+    }
+    return false;
   }
 }

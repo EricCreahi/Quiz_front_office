@@ -2,6 +2,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { QuizView } from '../../shared/models';
 import { AnimationItem } from 'lottie-web';
 import { AnimationOptions } from 'ngx-lottie';
+import { LocalStorageService } from '../../shared/service/localstorage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-quiz-result',
@@ -11,8 +13,14 @@ import { AnimationOptions } from 'ngx-lottie';
 export class QuizResultComponent {
   @Output() navigate = new EventEmitter<QuizView>();
 
-  options: AnimationOptions = {
-    assetsPath: '/assets/success_confetti.json',
+  constructor(private router: Router) {}
+
+  trophyOptions: AnimationOptions = {
+    path: '/assets/trophy.json',
+  };
+
+  confettiOptions: AnimationOptions = {
+    path: '/assets/success_confetti.json',
   };
 
   animationCreated(animationItem: AnimationItem): void {
@@ -21,5 +29,14 @@ export class QuizResultComponent {
 
   navigateToView(view: QuizView) {
     this.navigate.emit(view);
+  }
+
+  navigateToRoute(route: string): void {
+    this.router.navigate([route]);
+  }
+
+  handleLogout(): void {
+    LocalStorageService.removeItem('auth');
+    this.navigateToRoute('/');
   }
 }

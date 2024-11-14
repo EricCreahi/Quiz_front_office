@@ -10,6 +10,7 @@ import { LoginReq, Response, Utilisateur } from '../../shared/models';
 import { AuthService } from '../../shared/service/auth.service';
 import { LocalStorageService } from '../../shared/service/localstorage.service';
 import { createObserver } from '../../shared/utils/observer';
+import { AnimationOptions } from 'ngx-lottie';
 
 @Component({
   selector: 'app-login',
@@ -27,6 +28,11 @@ export class LoginComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;
   portal = new ComponentPortal(CguComponent);
   isLoading: boolean = false;
+  user: Utilisateur = LocalStorageService.getItem('auth');
+  readCgu: boolean = LocalStorageService.getItem('cgu');
+  ballonOptions: AnimationOptions = {
+    path: '/assets/ballon.json',
+  };
 
   constructor(
     private router: Router,
@@ -41,12 +47,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit(): void {
-    const user: Utilisateur = LocalStorageService.getItem('auth');
-    const readCgu: boolean = LocalStorageService.getItem('cgu');
+  
 
+  ngOnInit(): void {
     // On vérifie si l'utilisateur est déjà connecté
-    if (user != undefined) {
+    if (this.user != null && this.user != undefined) {
       this.navigateToRoute('/quiz');
     }
 
@@ -65,7 +70,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     }, 5000);
 
     // Ouvrir le modal CGU
-    if (readCgu == undefined || readCgu == false) {
+    if (this.readCgu == undefined || this.readCgu == false) {
       this.modalService.open(this.portal);
     }
   }

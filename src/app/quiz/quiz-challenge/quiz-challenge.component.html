@@ -4,12 +4,12 @@
   <!-- progress and title -->
   <div class="max-w-4xl mx-auto text-center relative">
     <p class="font-mont font-bold mb-1">
-      Question {{ currentQuestionIndex + 1 }} / 10
+      Question {{ currentQuestionIndex + 1 }} / {{ quizQuestions.length }}
     </p>
     <div
       class="flex flex-row space-x-1 mx-auto w-auto justify-center items-center"
     >
-      <!-- @for (question of currentQuiz.questions; track $index) {
+      @for (question of quizQuestions; track $index) {
       <div
         class="w-10 h-1 transform -skew-x-12"
         [ngClass]="{
@@ -18,7 +18,7 @@
               'bg-white': $index > currentQuestionIndex,
             }"
       ></div>
-      } -->
+      }
     </div>
     <div
       class="animate-bounce bg-green-800 absolute -top-20 left-0 right-0 transition-all ease-in rounded-full ring-4 ring-white h-16 w-16 place-content-center place-self-center"
@@ -33,21 +33,22 @@
   <div
     class="relative bg-gradient-to-tr from-orange-50 to-orange-200 rounded-3xl max-w-4xl mx-auto outline-2 outline-dashed outline-orange-500 outline-offset-4"
   >
-    <!-- <p class="text-center text-slate-950 text-xl lg:text-3xl py-5 px-3">
-      {{ currentQuiz.questions[currentQuestionIndex].label }}
-    </p> -->
+    <p
+      class="text-center text-slate-950 text-xl lg:text-3xl py-5 px-3 select-none"
+    >
+      {{ quizQuestions[currentQuestionIndex].libelle_Sous_Question }}
+    </p>
   </div>
 
   <!-- Quiz Question answers -->
   <div class="max-w-4xl mx-auto grid grid-rows-1 space-y-6 my-6">
-    <!-- @for (question of currentQuiz.questions[currentQuestionIndex].options; track
-    $index) {
+    @for (choix of quizQuestions[currentQuestionIndex].choixes; track $index) {
     <app-option-card
-      [label]="question.label"
-      [isChecked]="userChoices[currentQuestionIndex] === question.id"
-      (optionSelected)="onOptionSelected(question.id)"
+      [label]="choix.libelle_Choix"
+      [isChecked]="userChoices[currentQuestionIndex] === choix.choixId"
+      (optionSelected)="onOptionSelected(choix.choixId)"
     ></app-option-card>
-    } -->
+    }
   </div>
 
   <!-- Quiz actions -->
@@ -64,14 +65,23 @@
         *ngIf="currentQuestionIndex > 0"
         variant="neutral"
         label="Précédent"
-        (onclick)="handlePrev()"
+        (click)="handlePrev()"
       ></app-button>
       <app-button
-        [disabled]="userChoices[currentQuestionIndex] == null"
-        *ngIf="currentQuestionIndex <= 9"
-        [label]="currentQuestionIndex != 9 ? 'Suivant' : 'Valider le quiz'"
-        (onclick)="
-          currentQuestionIndex != 9 ? handleNext() : handleValdateQuiz()
+        [disabled]="
+          userChoices[currentQuestionIndex] == null || isUpdatingChoice === true
+        "
+        [isLoading]="isUpdatingChoice"
+        *ngIf="currentQuestionIndex <= quizQuestions.length"
+        [label]="
+          currentQuestionIndex != quizQuestions.length - 1
+            ? 'Suivant'
+            : 'Valider le quiz'
+        "
+        (click)="
+          checkIfAlreadyAnswered(currentQuestionIndex) === false
+            ? validateQuestionChoice()
+            : updateQuestionChoice()
         "
       ></app-button>
     </div>

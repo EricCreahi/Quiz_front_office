@@ -1,8 +1,10 @@
-<button
-  id="music-btn"
-  (click)="playSound()"
-  class="h-12 w-12 rounded-full bg-orange-500 absolute left-2 bottom-2"
->
-  {{ sound.playing() ? "Pause" : "play" }}
-</button>
-<router-outlet />
+<div class="h-full overflow-x-hidden overflow-y-auto select-none">
+  <button
+    id="music-btn"
+    (click)="playSound()"
+    class="h-12 w-12 rounded-full bg-orange-500 absolute left-2 bottom-2 transform transition rotate-0 hover:rotate-12 hover:bg-green-500 hover:scale-105 hover:ring-2 ring-white ring-offset-2 hover:text-slate-950 hover:bottom-3 hover:left-3 origin-center"
+  >
+    {{ sound.playing() ? "Pause" : "Jouer" }}
+  </button>
+  <router-outlet />
+</div>

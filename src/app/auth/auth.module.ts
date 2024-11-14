@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ComponentsModule } from '../components/components.module';
 import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './login/login.component';
+import { LottieComponent } from 'ngx-lottie';
 
 @NgModule({
   declarations: [LoginComponent],
@@ -14,6 +15,7 @@ import { LoginComponent } from './login/login.component';
     AuthRoutingModule,
     ReactiveFormsModule,
     OverlayModule,
+    LottieComponent,
   ],
 })
 export class AuthModule {}

@@ -15,5 +15,25 @@
   [class]="class"
   [disabled]="disabled"
 >
-  <span class="relative z-10 text-shadow-md">{{ label }}</span>
+  <!-- Display Button label and Icon -->
+  <span
+    *ngIf="!isLoading"
+    class="relative z-10 text-shadow-md flex flex-row justify-center space-x-2"
+  >
+    <lucide-angular [name]="iconName" size="30" *ngIf="showIcon">
+    </lucide-angular>
+    <span>
+      {{ label }}
+    </span>
+  </span>
+
+  <!-- Display loading -->
+  <span
+    *ngIf="isLoading"
+    class="relative z-10 text-shadow-md flex flex-row justify-center space-x-2"
+  >
+    <lucide-angular name="loader-pinwheel" size="30" class="animate-spin text-shadow-sm">
+    </lucide-angular>
+    <span> chargement </span>
+  </span>
 </button>

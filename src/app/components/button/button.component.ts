@@ -12,6 +12,9 @@ export class ButtonComponent {
   @Input() variant: ButtonVariantType = 'primary';
   @Input() disabled: boolean = false;
   @Input() label: string = 'Button';
+  @Input() iconName!: string;
+  @Input() showIcon: boolean = false;
+  @Input() isLoading: boolean = false;
   @Input() class!: string;
 
   // @Output() click = new EventEmitter<void>();

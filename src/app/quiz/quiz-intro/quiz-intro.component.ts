@@ -27,7 +27,7 @@ export class QuizIntroComponent {
   interval!: ReturnType<typeof setInterval>;
   @Output() navigate = new EventEmitter<QuizView>();
   showCountdown: boolean = false;
-  user: Utilisateur;
+  user: Utilisateur = LocalStorageService.getItem('auth');
   isLoadingQuestionsCocher: boolean = false;
   isLoadingQuestionsTampon: boolean = false;
 
@@ -35,9 +35,7 @@ export class QuizIntroComponent {
     private router: Router,
     private questionService: QuestionService,
     private toastr: ToastrService
-  ) {
-    this.user = LocalStorageService.getItem('auth');
-  }
+  ) {}
 
   ngOnInit(): void {
     // On vérifie si l'utilisateur est déjà connecté
@@ -106,12 +104,13 @@ export class QuizIntroComponent {
     const observer = createObserver<Response<TamponCocher>>(
       (res) => {
         this.isLoadingQuestionsCocher = false;
-        if (res.status === 'succes') {
+        if (res.status === 'succes' || res.status === null) {
           if (res.nbreData < 10) {
             // On vérifie les questions non répondues
             this.checkQuestionsTampon();
           } else {
             // Toutes les questions on été répondues
+            LocalStorageService.setItem('liste-cocher', res.data);
           }
           // LocalStorageService.setItem('questions', res.data);
         } else {
@@ -135,7 +134,7 @@ export class QuizIntroComponent {
       (res) => {
         this.isLoadingQuestionsTampon = false;
         if (res.status === 'succes') {
-          LocalStorageService.setItem('questions', res.data);
+          LocalStorageService.setItem('liste-tampon', res.data);
         } else {
           this.toastr.error(String(res.message), 'Erreur!');
         }

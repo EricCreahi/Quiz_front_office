@@ -1,5 +1,7 @@
 // import { quizDB } from '../db';
 
+import { Question } from '../models';
+
 function generateRandomNumber(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -19,4 +21,22 @@ export function shuffleOptions<T>(array: T[]): T[] {
     [array[i], array[j]] = [array[j], array[i]]; // Échange des éléments
   }
   return array;
+}
+
+export function selectQuestions(
+  questions: Array<Question>,
+  nombreQuestions: number,
+  idsExclus: Array<number>
+) {
+  let questionsRange: Array<Question> = questions.filter(
+    (qr) => !idsExclus.includes(qr.sousQuestionId)
+  );
+
+  console.log(questionsRange);
+  
+  questionsRange = questionsRange.sort(() => Math.random() - 0.5);
+
+  return nombreQuestions < questions.length
+    ? shuffleOptions(questionsRange.slice(0, questions.length))
+    : shuffleOptions(questionsRange.slice(0, nombreQuestions));
 }

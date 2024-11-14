@@ -27,7 +27,7 @@ export class AppComponent implements OnInit, OnDestroy {
       src: ['/assets/opener.mp3'],
       autoplay: true,
       loop: true,
-      volume: 0.2,
+      volume: 0.05,
       html5: true,
       preload: true,
     });
