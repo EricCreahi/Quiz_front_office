@@ -85,7 +85,7 @@ export class QuizIntroComponent {
   }
 
   onComplete(event: BMCompleteEvent): void {
-    console.log(event);
+    // console.log(event);
   }
 
   handleLogout(): void {

@@ -53,15 +53,13 @@ export class QuizChallengeComponent {
     if (this.currentQuestionIndex >= 1) {
       this.currentQuestionIndex = this.currentQuestionIndex - 1;
     }
-
-    console.log(this.answeredQuestions);
   }
 
   handleNext(): void {
     if (this.currentQuestionIndex < this.quizQuestions.length - 1) {
       this.currentQuestionIndex = this.currentQuestionIndex + 1;
     } else {
-      this.handleValdateQuiz();
+      this.handleValidateQuiz();
     }
   }
 
@@ -73,12 +71,31 @@ export class QuizChallengeComponent {
     this.countdown$ = interval(1000).pipe(
       map((elapsed) => duration - elapsed - 1), // Calcul du temps restant
       takeWhile((remaining) => remaining >= 0), // Arrêter lorsque le temps atteint 0
-      finalize(() => this.handleValdateQuiz()) // Action une fois terminé
+      finalize(() => this.handleValidateQuiz()) // Action une fois terminé
     );
   }
 
-  handleValdateQuiz(): void {
-    this.navigateToView('RESULT');
+  handleValidateQuiz(): void {
+    this.isUpdatingChoice = true;
+    const observer = createObserver<Response<void>>(
+      (res) => {
+        this.isUpdatingChoice = false;
+        if (res.status === 'succes') {
+          this.navigateToView('RESULT');
+        }
+      },
+      (error) => {
+        this.toastr.error(error.message, 'Une erreur est survenue!');
+        this.isUpdatingChoice = false;
+      },
+      () => {
+        this.isUpdatingChoice = false;
+      }
+    );
+
+    this.questionService
+      .validerListeCocherByMatricule(this.user.usermatricule)
+      .subscribe(observer);
   }
 
   navigateToView(view: QuizView) {
