@@ -1,4 +1,4 @@
-<div class="container max-w-6xl mx-auto px-6 lg:px-0 py-5 space-y-5">
+<div class="container max-w-6xl mx-auto lg:px-0 py-5 space-y-5">
   @switch (currentView) {
     @case ("HOME") { <app-quiz-intro (navigate)="navigateTo($event)"></app-quiz-intro> }
     @case ("CHALLENGE") { <app-quiz-challenge (navigate)="navigateTo($event)"></app-quiz-challenge> }

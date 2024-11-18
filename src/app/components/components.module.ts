@@ -13,6 +13,7 @@ import { HeaderComponent } from './header/header.component';
 import { InputComponent } from './input/input.component';
 import { ModalComponent } from './modal/modal.component';
 import { QuizHeaderComponent } from './quiz-header/quiz-header.component';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { QuizHeaderComponent } from './quiz-header/quiz-header.component';
     ModalComponent,
     QuizHeaderComponent,
     CguComponent,
+    LogoutComponent,
   ],
   imports: [
     CommonModule,
@@ -35,6 +37,7 @@ import { QuizHeaderComponent } from './quiz-header/quiz-header.component';
     ModalComponent,
     QuizHeaderComponent,
     CguComponent,
+    LogoutComponent,
   ],
 })
 export class ComponentsModule {}

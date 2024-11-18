@@ -32,9 +32,12 @@ export function selectQuestions(
     (qr) => !idsExclus.includes(qr.sousQuestionId)
   );
 
-  questionsRange = questionsRange.sort(() => Math.random() - 0.5);
+  questionsRange = questionsRange
+    .sort(() => Math.random() - 0.5)
+    .map((q) => ({ ...q, choixes: shuffleOptions(q.choixes) }));
 
-  return nombreQuestions < questions.length
-    ? shuffleOptions(questionsRange.slice(0, 10))
-    : shuffleOptions(questionsRange.slice(0, nombreQuestions));
+  console.log(nombreQuestions);
+
+  return shuffleOptions(questionsRange.slice(0, nombreQuestions));
 }
+// ? shuffleOptions(questionsRange.slice(0, 10))

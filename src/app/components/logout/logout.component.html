@@ -1,0 +1,18 @@
+
+<div class="container text-center text-3xl text-slate-800">
+  êtes-vous sur de vouloir partir ?
+</div>
+
+<div class="mx-auto w-fit py-2 space-x-3">
+  <app-button
+    variant="secondary"
+    label="Oui, quitter"
+    (click)="handleLogout()"
+  ></app-button>
+
+  <app-button
+    variant="danger"
+    label="Annuler"
+    (click)="cancelLogout()"
+  ></app-button>
+</div>

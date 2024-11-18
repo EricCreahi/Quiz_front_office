@@ -11,4 +11,5 @@ export const routes: Routes = [
     loadChildren: () => import('./quiz/quiz.module').then((m) => m.QuizModule),
   },
   { path: '**', redirectTo: 'auth' },
+  { path: '***', redirectTo: '/' },
 ];

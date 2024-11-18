@@ -122,7 +122,7 @@ export class QuizChallengeComponent {
 
     this.quizQuestions = selectQuestions(
       this.questions,
-      10 - questionsTampon.length,
+      10 - idsQuestionsTamponsCocher.length,
       idsQuestionsTamponsCocher
     );
   }

@@ -1,10 +1,25 @@
-<div class="h-full overflow-x-hidden overflow-y-auto select-none">
+<div class="h-screen flex flex-col relative overflow-hidden">
+  <div
+    class="flex-1 overflow-y-auto overflow-x-hidden px-10 lg:px-0 lg:pb-0 pb-24 lg:py-0"
+  >
+    <router-outlet />
+  </div>
+
+  <footer
+    class="h-5 w-full flex flex-row justify-between items-center px-2 bg-slate-900 relative bottom-0 text-center font-mont text-xs"
+  >
+    <div class="">
+      <span>Copyright &copy; 2023-2024 <a href="#">DSI SNPECI</a>. </span>
+      All rights reserved.
+    </div>
+    <div class=""><b>Version</b> V.1.0</div>
+  </footer>
+
   <button
     id="music-btn"
     (click)="playSound()"
-    class="h-12 w-12 rounded-full bg-orange-500 absolute left-2 bottom-2 transform transition rotate-0 hover:rotate-12 hover:bg-green-500 hover:scale-105 hover:ring-2 ring-white ring-offset-2 hover:text-slate-950 hover:bottom-3 hover:left-3 origin-center"
+    class="h-12 w-12 rounded-full bg-orange-500 absolute left-2 bottom-5 transform transition rotate-0 hover:rotate-12 hover:bg-green-500 hover:scale-105 hover:ring-2 ring-white ring-offset-2 hover:text-slate-950 hover:bottom-3 hover:left-3 origin-center"
   >
     {{ sound.playing() ? "Pause" : "Jouer" }}
   </button>
-  <router-outlet />
 </div>
