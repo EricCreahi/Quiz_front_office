@@ -22,7 +22,10 @@
       <p class="textlg lg:text-4xl text-center">Célébrons les</p>
       <img src="LOGO-60ANS.png" class="h-80 mx-auto" alt="logo-60" />
       <p class="textlg lg:text-4xl text-center">de Fraternité Matin</p>
-      <div class="flex flex-row space-x-4 justify-center mt-10">
+      <div
+        *ngIf="!showCountdown"
+        class="flex flex-row space-x-4 justify-center mt-10"
+      >
         <app-button
           variant="secondary"
           label="Je suis prêt, c'est parti !!!"

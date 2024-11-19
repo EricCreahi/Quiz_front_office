@@ -1,7 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { ChoixReponseReq, ChoixReponseResponse, Question, Response, TamponCocher } from '../models';
+import {
+  ChoixReponseReq,
+  ChoixReponseResponse,
+  Question,
+  QuizDay,
+  Response,
+  TamponCocher,
+  UserScore,
+} from '../models';
 import { ApiService } from './api.service';
 
 @Injectable({
@@ -15,6 +23,12 @@ export class QuestionService {
   getAll(): Observable<Response<Question>> {
     return this.api.GET<Response<Question>>(
       this.API_URL + 'SousQuestion/SousQuestions'
+    );
+  }
+
+  getQuizList(): Observable<Response<QuizDay>> {
+    return this.api.GET<Response<QuizDay>>(
+      this.API_URL + 'Question/ListeQuestions'
     );
   }
 
@@ -56,6 +70,15 @@ export class QuestionService {
   validerListeCocherByMatricule(matricule: string): Observable<Response<void>> {
     return this.api.GET<Response<void>>(
       `${this.API_URL}CocherTampon/ValiderListeCocherTampon/${matricule}`
+    );
+  }
+
+  getUtilisateurScore(
+    matricule: string
+  ): Observable<Response<UserScore>> {
+    return this.api.GET<Response<UserScore>>(
+      `${this.API_URL}Employe/ResultatEmployeCocher/${matricule}`,
+      { matricule: matricule }
     );
   }
 }

@@ -110,7 +110,8 @@ export class QuizIntroComponent {
             this.checkQuestionsTampon();
           } else {
             // Toutes les questions on été répondues
-            LocalStorageService.setItem('liste-cocher', res.data);
+            // LocalStorageService.setItem('liste-cocher', res.data);
+            this.navigateToView('RESULT');
           }
           // LocalStorageService.setItem('questions', res.data);
         } else {

@@ -47,8 +47,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
   }
 
-  
-
   ngOnInit(): void {
     // On vérifie si l'utilisateur est déjà connecté
     if (this.user != null && this.user != undefined) {
@@ -98,7 +96,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         },
         (error) => {
           console.log(error.message);
-          this.toastr.error(error.message, 'Une erreur est survenue!');
+          this.toastr.error('Veuillez réessayer', 'Une erreur est survenue!');
           this.isLoading = false;
         },
         () => {

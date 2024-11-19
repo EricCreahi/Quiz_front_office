@@ -6,11 +6,12 @@ import { Question, Response } from './shared/models';
 import { LocalStorageService } from './shared/service/localstorage.service';
 import { QuestionService } from './shared/service/question.service';
 import { createObserver } from './shared/utils/observer';
+import { LucideAngularModule, Volume, VolumeOff } from 'lucide-angular';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, LucideAngularModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
@@ -18,6 +19,9 @@ export class AppComponent implements OnInit, OnDestroy {
   title = 'fratmat_anniv_quiz';
   sound: Howl;
   isLoading: boolean = false;
+  isPlaying: boolean = false;
+  readonly Volume = Volume;
+  readonly VolumeOff = VolumeOff;
 
   constructor(
     private questionService: QuestionService,
@@ -47,21 +51,11 @@ export class AppComponent implements OnInit, OnDestroy {
     if (this.sound.playing() === false) {
       // Joue directement si l'AudioContext est déjà actif
       this.sound.play();
+      this.isPlaying = true;
     } else {
       this.sound.pause();
+      this.isPlaying = false;
     }
-
-    // if (audioContext.state === 'suspended') {
-    //   audioContext.resume().then(() => {
-    //     // Joue le son après la reprise de l'AudioContext
-    //     this.sound.play();
-    //   });
-    // } else {
-    //   if (this.sound.playing() === false) {
-    //     // Joue directement si l'AudioContext est déjà actif
-    //     this.sound.play();
-    //   }
-    // }
   }
 
   loadQuestions() {
@@ -81,4 +75,28 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.questionService.getAll().subscribe(observer);
   }
+
+  // loadQuizzes() {
+  //   const observer = createObserver<Response<QuizDay>>(
+  //     (res) => {
+  //       this.isLoading = false;
+  //       if (res.status === 'succes') {
+  //         // Récupéation du quiz actif
+  //         const enabledQuiz = res.data?.find((i) => i.estVisible === true);
+  //         if (typeof enabledQuiz != 'undefined') {
+  //           LocalStorageService.setItem('current-quiz', enabledQuiz);
+  //         } else {
+  //           this.toastr.error("Aucun quiz actif aujourd'hui", 'Erreur!');
+  //         }
+  //       } else {
+  //         this.toastr.error(String(res.message), 'Erreur!');
+  //       }
+  //     },
+  //     (error) => {
+  //       this.toastr.error(error.message, 'Une erreur est survenue!');
+  //     }
+  //   );
+
+  //   this.questionService.getQuizList().subscribe(observer);
+  // }
 }

@@ -16,6 +16,7 @@ import { provideLottieOptions } from 'ngx-lottie';
 import { provideToastr } from 'ngx-toastr';
 import { routes } from './app.routes';
 import { LocalStorageService } from './shared/service/localstorage.service';
+import { LucideAngularModule, SquareUserRound, Volume, VolumeOff } from 'lucide-angular';
 
 export function loadState() {
   return () => {
@@ -32,7 +33,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     importProvidersFrom(NgOptimizedImage),
     importProvidersFrom(OverlayModule),
-
     provideAnimations(),
     provideToastr(),
     provideLottieOptions({

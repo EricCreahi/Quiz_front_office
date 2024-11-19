@@ -3,6 +3,7 @@ export type StorageKeys =
   | 'questions'
   | 'cgu'
   | 'liste-tampon'
+  | 'current-quiz'
   | 'liste-cocher';
 export type QuizView = 'HOME' | 'CHALLENGE' | 'RESULT';
 
