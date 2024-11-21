@@ -4,16 +4,25 @@
   containerClass="mx-auto my-0 h-screen"
   [options]="ballonOptions"
 />
+
 <div class="container max-w-xl mx-auto h-full">
-  <div class="h-full flex flex-col justify-around">
-    <app-header></app-header>
+  <div class="h-full flex flex-col justify-evenly relative">
+    <div>
+      <app-header></app-header>
+      <img
+        src="LOGO-60ANS.png"
+        class="-mt-3 h-40 mx-auto left-0 right-0"
+        alt="logo-60"
+      />
+    </div>
+
     <form [formGroup]="loginForm" (ngSubmit)="logInUser()">
       <div class="flex flex-col space-y-4 text-center">
         <app-input
           id="matricule"
           label="Numéro Matricule"
           size="large"
-          placeholder="Entrez votre numéro matricule"
+          placeholder="Numéro matricule"
           [block]="true"
           name="matricule"
           formControlName="matricule"
@@ -27,7 +36,7 @@
           id="password"
           label="Mot de passe"
           size="large"
-          placeholder="Entrez votre mot de passe"
+          placeholder="Mot de passe"
           [block]="true"
           type="password"
           name="password"
@@ -40,20 +49,23 @@
         ></app-input>
         <div class="space-x-4">
           <app-button
+            btnType="submit"
             variant="secondary"
-            label="Se Connecter et commencer le quiz"
+            label="Se Connecter"
             [disabled]="isLoading"
             (onclick)="logInUser()"
             iconName="scan-face"
             [showIcon]="true"
             [isLoading]="isLoading"
           ></app-button>
-          <!-- <app-button
+          <app-button
             variant="primary"
-            label="Créer un compte"
-            routerLink="/auth/register"
-            (onclick)="navigateToRoute('/auth/register')"
-          ></app-button> -->
+            iconName="medal"
+            [showIcon]="true"
+            label="Classement"
+            routerLink="/rank"
+            [disabled]="isLoading"
+          ></app-button>
         </div>
       </div>
     </form>

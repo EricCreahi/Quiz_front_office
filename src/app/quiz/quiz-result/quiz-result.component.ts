@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { createObserver } from '../../shared/utils/observer';
 import { QuestionService } from '../../shared/service/question.service';
 import { ToastrService } from 'ngx-toastr';
+import { HowlerService } from '../../shared/service/howler.service';
 
 @Component({
   selector: 'app-quiz-result',
@@ -27,13 +28,18 @@ export class QuizResultComponent implements OnInit {
   constructor(
     private router: Router,
     private questionService: QuestionService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private howlerService: HowlerService
   ) {}
 
   ngOnInit(): void {
     this.isLoading = true;
     this.getScore();
   }
+
+  // ngOnDestroy(): void {
+  //   this.howlerService.toggleSound();
+  // }
 
   trophyOptions: AnimationOptions = {
     path: '/assets/trophy.json',
@@ -64,15 +70,19 @@ export class QuizResultComponent implements OnInit {
     LocalStorageService.removeItem('cgu');
     LocalStorageService.removeItem('liste-tampon');
     LocalStorageService.removeItem('liste-cocher');
+    this.howlerService.playMainSound();
     this.navigateToRoute('/');
   }
 
   getScore() {
+    this.howlerService.toggleDrumSound();
     const observer = createObserver<Response<UserScore>>(
       (res) => {
         setTimeout(() => {
           this.isLoading = false;
           if (res.status === 'succes') {
+            this.howlerService.toggleDrumSound();
+            this.howlerService.toggleResultSound();
             this.userScore = res.oneData as UserScore;
           } else {
             this.toastr.error(String(res.message), 'Erreur!');

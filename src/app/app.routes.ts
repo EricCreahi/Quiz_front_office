@@ -1,7 +1,9 @@
 import { Routes } from '@angular/router';
+import { RankComponent } from './rank/rank.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'auth', pathMatch: 'full' },
+  { path: 'rank', component: RankComponent },
   {
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),

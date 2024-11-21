@@ -1,12 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Howl } from 'howler';
+import { LucideAngularModule, Volume, VolumeOff } from 'lucide-angular';
 import { ToastrService } from 'ngx-toastr';
 import { Question, Response } from './shared/models';
 import { LocalStorageService } from './shared/service/localstorage.service';
 import { QuestionService } from './shared/service/question.service';
 import { createObserver } from './shared/utils/observer';
-import { LucideAngularModule, Volume, VolumeOff } from 'lucide-angular';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +16,6 @@ import { LucideAngularModule, Volume, VolumeOff } from 'lucide-angular';
 })
 export class AppComponent implements OnInit, OnDestroy {
   title = 'fratmat_anniv_quiz';
-  sound: Howl;
   isLoading: boolean = false;
   isPlaying: boolean = false;
   readonly Volume = Volume;
@@ -26,36 +24,16 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private questionService: QuestionService,
     private toastr: ToastrService
-  ) {
-    this.sound = new Howl({
-      src: ['/assets/opener.mp3'],
-      autoplay: true,
-      loop: true,
-      volume: 0.05,
-      html5: true,
-      preload: true,
-    });
-  }
+  ) // private howlerService: HowlerService
+  {}
 
   ngOnInit(): void {
     this.loadQuestions();
+    // this.howlerService.toggleSound();
   }
 
   ngOnDestroy(): void {
     LocalStorageService.removeItem('questions');
-  }
-
-  playSound() {
-    // const audioContext = Howler.ctx;
-    // console.log(Howler.ctx);
-    if (this.sound.playing() === false) {
-      // Joue directement si l'AudioContext est déjà actif
-      this.sound.play();
-      this.isPlaying = true;
-    } else {
-      this.sound.pause();
-      this.isPlaying = false;
-    }
   }
 
   loadQuestions() {

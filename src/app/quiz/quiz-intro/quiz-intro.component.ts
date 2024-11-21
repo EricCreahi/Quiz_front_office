@@ -104,19 +104,27 @@ export class QuizIntroComponent {
     const observer = createObserver<Response<TamponCocher>>(
       (res) => {
         this.isLoadingQuestionsCocher = false;
-        if (res.status === 'succes' || res.status === null) {
-          if (res.nbreData < 10) {
-            // On vérifie les questions non répondues
-            this.checkQuestionsTampon();
-          } else {
-            // Toutes les questions on été répondues
-            // LocalStorageService.setItem('liste-cocher', res.data);
-            this.navigateToView('RESULT');
-          }
-          // LocalStorageService.setItem('questions', res.data);
+        if (res.nbreData >= 1) {
+          // On vérifie les questions non répondues
+          this.navigateToView('RESULT');
         } else {
-          this.toastr.error(String(res.message), 'Erreur!');
+          this.checkQuestionsTampon();
+          // Toutes les questions on été répondues
+          // LocalStorageService.setItem('liste-cocher', res.data);
         }
+        // if (res.status === 'succes' || res.status === null) {
+        //   if (res.nbreData < 10) {
+        //     // On vérifie les questions non répondues
+        //     this.checkQuestionsTampon();
+        //   } else {
+        //     // Toutes les questions on été répondues
+        //     // LocalStorageService.setItem('liste-cocher', res.data);
+        //     this.navigateToView('RESULT');
+        //   }
+        //   // LocalStorageService.setItem('questions', res.data);
+        // } else {
+        //   this.toastr.error(String(res.message), 'Erreur!');
+        // }
       },
       (error) => {
         this.toastr.error(error.message, 'Une erreur est survenue!');

@@ -11,7 +11,7 @@ import {
   provideZoneChangeDetection,
 } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withViewTransitions } from '@angular/router';
 import { provideLottieOptions } from 'ngx-lottie';
 import { provideToastr } from 'ngx-toastr';
 import { routes } from './app.routes';
@@ -30,7 +30,7 @@ export const appConfig: ApplicationConfig = {
     { provide: APP_INITIALIZER, useFactory: loadState, multi: true },
     provideHttpClient(withInterceptorsFromDi()),
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes),
+    provideRouter(routes, withViewTransitions()),
     importProvidersFrom(NgOptimizedImage),
     importProvidersFrom(OverlayModule),
     provideAnimations(),

@@ -1,5 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { mouseClik } from '../../shared/utils/sound';
+import { Component, Input } from '@angular/core';
 
 type ButtonVariantType = 'primary' | 'secondary' | 'danger' | 'neutral';
 
@@ -16,6 +15,7 @@ export class ButtonComponent {
   @Input() showIcon: boolean = false;
   @Input() isLoading: boolean = false;
   @Input() class!: string;
+  @Input() btnType: HTMLButtonElement['type'] = 'button';
 
   // @Output() click = new EventEmitter<void>();
 

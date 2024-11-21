@@ -19,8 +19,7 @@
 }
 
 body {
-  background: linear-gradient(rgb(10, 31, 0, 0.9), rgb(10, 31, 0)),
-    url("assets/bg_main.webp") no-repeat center;
+  background: linear-gradient(rgb(10, 31, 0, 0.9), rgb(10, 31, 0));
   background-size: cover;
   background-repeat: no-repeat;
   height: 100vh;
@@ -237,3 +236,36 @@ button.toast-close-button {
     width: 25em;
   }
 }
+
+@keyframes enter {
+  0% {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes exit {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+}
+
+::view-transition-old(root) {
+  animation: exit 0.3s ease 0s 1 normal forwards;
+}
+
+::view-transition-new(root) {
+  animation: enter 0.3s ease 0s 1 normal forwards;
+}
+

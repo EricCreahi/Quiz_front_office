@@ -2,8 +2,10 @@ import { PortalModule } from '@angular/cdk/portal';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import {
+  Crown,
   LoaderPinwheel,
   LucideAngularModule,
+  Medal,
   Rocket,
   ScanFace,
 } from 'lucide-angular';
@@ -28,7 +30,13 @@ import { LogoutComponent } from './logout/logout.component';
   imports: [
     CommonModule,
     PortalModule,
-    LucideAngularModule.pick({ Rocket, ScanFace, LoaderPinwheel }),
+    LucideAngularModule.pick({
+      Rocket,
+      ScanFace,
+      LoaderPinwheel,
+      Crown,
+      Medal,
+    }),
   ],
   exports: [
     ButtonComponent,

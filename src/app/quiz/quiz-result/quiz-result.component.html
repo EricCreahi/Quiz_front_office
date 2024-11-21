@@ -1,4 +1,4 @@
-<div class="container max-w-6xl mx-auto px-6 lg:px-0 py-5 space-y-5">
+<div class="container max-w-6xl mx-auto lg:px-0 py-5 space-y-5">
   <ng-lottie
     class="absolute left-0 right-0 top-0 -z-0"
     containerClass="mx-auto my-auto"
@@ -33,19 +33,34 @@
 
       <div class="text-3xl lg:text-5xl text-white">
         <!-- <span> {{ getAppreciation(userScore.totalNote) }} </span> -->
-        <p class="text-xl">Nous espérons que vous serez parmi les gagnants</p>
+        <p class="text-xl">
+          Revenez demain pour rejouer et augmentez vos points,<br />
+          et maximisez vos chances d'être parmi les gagnants
+        </p>
       </div>
 
-      <app-button
-        class="mt-10"
-        variant="danger"
-        label="Quitter le quiz"
-        (click)="handleLogout()"
-      ></app-button>
+      <div class="space-x-5">
+        <app-button
+          class="mt-10"
+          variant="danger"
+          label="Quitter le quiz"
+          (click)="handleLogout()"
+        ></app-button>
+
+        <app-button
+          variant="primary"
+          iconName="medal"
+          [showIcon]="true"
+          label="Mon classement"
+          routerLink="/rank"
+          [disabled]="isLoading"
+        ></app-button>
+      </div>
     </div>
 
     <div *ngIf="isLoading" class="text-center">
-      <ng-lottie width="30vw"
+      <ng-lottie
+        width="30vw"
         class="left-0 right-0 top-0 -z-0"
         containerClass="mx-auto my-auto"
         [options]="drumOptions"

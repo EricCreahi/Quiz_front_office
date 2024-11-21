@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { finalize, interval, map, Observable, takeWhile } from 'rxjs';
 import {
@@ -15,13 +21,14 @@ import { LocalStorageService } from '../../shared/service/localstorage.service';
 import { QuestionService } from '../../shared/service/question.service';
 import { selectQuestions } from '../../shared/utils/common';
 import { createObserver } from '../../shared/utils/observer';
+import { HowlerService } from '../../shared/service/howler.service';
 
 @Component({
   selector: 'app-quiz-challenge',
   templateUrl: './quiz-challenge.component.html',
   styleUrl: './quiz-challenge.component.css',
 })
-export class QuizChallengeComponent {
+export class QuizChallengeComponent implements OnInit, OnDestroy {
   currentQuestionIndex: number = 0;
   userChoices: Array<number> = [];
   answeredQuestions: Array<{ index: number; cocherTamponId: number }> = [];
@@ -41,12 +48,19 @@ export class QuizChallengeComponent {
 
   constructor(
     private questionService: QuestionService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private howlerService: HowlerService
   ) {}
+  
+  ngOnDestroy(): void {
+    this.howlerService.toggleTickingSound();
+  }
 
   ngOnInit() {
     this.loadQuestions();
     // this.startCountdown(91);
+    this.howlerService.stopMainSound();
+    this.howlerService.toggleTickingSound();
   }
 
   handlePrev(): void {
