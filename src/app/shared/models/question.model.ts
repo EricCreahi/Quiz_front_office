@@ -51,3 +51,15 @@ export type UserScore = {
   statut: string;
   totalNote: number;
 };
+
+export type UserRanking = {
+  matricule: string;
+  nom_Pers: string;
+  prenoms_Pers: string;
+  contact: string;
+  fonction: string;
+  direction: string;
+  email: string;
+  statut: string;
+  totalNote: number;
+};

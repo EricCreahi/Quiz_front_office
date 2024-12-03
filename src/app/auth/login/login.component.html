@@ -1,7 +1,7 @@
 <canvas id="login_confetti" class="absolute top-0 left-0 right-0 -z-0"></canvas>
 <ng-lottie
   class="absolute left-0 right-0 top-0 -z-30 bottom-0"
-  containerClass="mx-auto my-0 h-screen"
+  containerClass="mx-auto my-0 h-screen w-screen"
   [options]="ballonOptions"
 />
 
@@ -47,7 +47,7 @@
             isControlInvalid('password') ? 'Mot de passe obligatoire' : ''
           "
         ></app-input>
-        <div class="space-x-4">
+        <div class="space-x-2">
           <app-button
             btnType="submit"
             variant="secondary"

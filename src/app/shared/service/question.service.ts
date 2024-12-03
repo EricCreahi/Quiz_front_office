@@ -8,6 +8,7 @@ import {
   QuizDay,
   Response,
   TamponCocher,
+  UserRanking,
   UserScore,
 } from '../models';
 import { ApiService } from './api.service';
@@ -73,12 +74,16 @@ export class QuestionService {
     );
   }
 
-  getUtilisateurScore(
-    matricule: string
-  ): Observable<Response<UserScore>> {
+  getUtilisateurScore(matricule: string): Observable<Response<UserScore>> {
     return this.api.GET<Response<UserScore>>(
       `${this.API_URL}Employe/ResultatEmployeCocher/${matricule}`,
       { matricule: matricule }
+    );
+  }
+
+  getRanking(): Observable<Response<UserRanking>> {
+    return this.api.GET<Response<UserRanking>>(
+      `${this.API_URL}TotalCocher/ListeEmployesTotalCocherGagnant`
     );
   }
 }
