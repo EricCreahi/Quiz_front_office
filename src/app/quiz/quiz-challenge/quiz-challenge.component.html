@@ -21,11 +21,17 @@
       }
     </div>
     <div
-      class="animate-bounce bg-green-800 absolute -top-20 left-0 right-0 transition-all ease-in rounded-full ring-4 ring-white h-16 w-16 place-content-center place-self-center"
+      [ngClass]="{
+        'bg-red-500':  timeLeft <= 5,
+        'bg-yellow-700': timeLeft > 5 && timeLeft <= 10,
+        'bg-green-800': timeLeft > 10,
+      }"
+      class="animate-bounce absolute -top-20 mx-auto left-0 right-0 transition-all ease-in rounded-full ring-4 ring-white h-16 w-16 place-content-center place-self-center"
     >
-      <h1 *ngIf="countdown$ | async as remainingTime" class="text-3xl">
+      <h1 class="text-3xl">{{ timeLeft }} s</h1>
+      <!-- <h1 *ngIf="countdown$ | async as remainingTime" class="text-3xl">
         {{ remainingTime }} s
-      </h1>
+      </h1> -->
     </div>
   </div>
 
@@ -56,17 +62,16 @@
     <div
       class="flex flex-row items-center"
       [ngClass]="{
-        'justify-end': currentQuestionIndex == 0,
-        'justify-between': currentQuestionIndex > 0,
-        'justify-start': currentQuestionIndex < 9
+        'justify-normal': currentQuestionIndex == 0,
+        'justify-end': currentQuestionIndex > 0 && currentQuestionIndex < 9,
       }"
     >
-      <app-button
+      <!-- <app-button
         *ngIf="currentQuestionIndex > 0"
         variant="neutral"
         label="Précédent"
         (click)="handlePrev()"
-      ></app-button>
+      ></app-button> -->
       <app-button
         [disabled]="
           userChoices[currentQuestionIndex] == null || isUpdatingChoice === true

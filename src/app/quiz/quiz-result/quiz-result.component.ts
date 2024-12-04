@@ -1,18 +1,18 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { AnimationItem } from 'lottie-web';
+import { AnimationOptions } from 'ngx-lottie';
+import { ToastrService } from 'ngx-toastr';
 import {
   QuizView,
   Response,
   UserScore,
   Utilisateur,
 } from '../../shared/models';
-import { AnimationItem } from 'lottie-web';
-import { AnimationOptions } from 'ngx-lottie';
-import { LocalStorageService } from '../../shared/service/localstorage.service';
-import { Router } from '@angular/router';
-import { createObserver } from '../../shared/utils/observer';
-import { QuestionService } from '../../shared/service/question.service';
-import { ToastrService } from 'ngx-toastr';
 import { HowlerService } from '../../shared/service/howler.service';
+import { LocalStorageService } from '../../shared/service/localstorage.service';
+import { QuestionService } from '../../shared/service/question.service';
+import { createObserver } from '../../shared/utils/observer';
 
 @Component({
   selector: 'app-quiz-result',

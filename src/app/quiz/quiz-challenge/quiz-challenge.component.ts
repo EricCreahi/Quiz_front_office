@@ -6,7 +6,7 @@ import {
   Output,
 } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { finalize, interval, map, Observable, takeWhile } from 'rxjs';
+import { interval, Subscription } from 'rxjs';
 import {
   ChoixReponseReq,
   ChoixReponseResponse,
@@ -17,11 +17,11 @@ import {
   UpdateChoixReponseReq,
   Utilisateur,
 } from '../../shared/models';
+import { HowlerService } from '../../shared/service/howler.service';
 import { LocalStorageService } from '../../shared/service/localstorage.service';
 import { QuestionService } from '../../shared/service/question.service';
 import { selectQuestions } from '../../shared/utils/common';
 import { createObserver } from '../../shared/utils/observer';
-import { HowlerService } from '../../shared/service/howler.service';
 
 @Component({
   selector: 'app-quiz-challenge',
@@ -32,7 +32,8 @@ export class QuizChallengeComponent implements OnInit, OnDestroy {
   currentQuestionIndex: number = 0;
   userChoices: Array<number> = [];
   answeredQuestions: Array<{ index: number; cocherTamponId: number }> = [];
-  countdown$: Observable<number> | undefined;
+  timeLeft = 20; // 10 secondes pour chaque question
+  timerSubscription: Subscription | null = null; // Subscription au timer
   showResults: boolean = false;
   isUpdatingChoice: boolean = false;
   user: Utilisateur = LocalStorageService.getItem('auth');
@@ -51,14 +52,16 @@ export class QuizChallengeComponent implements OnInit, OnDestroy {
     private toastr: ToastrService,
     private howlerService: HowlerService
   ) {}
-  
+
   ngOnDestroy(): void {
     this.howlerService.toggleTickingSound();
   }
 
   ngOnInit() {
     this.loadQuestions();
-    // this.startCountdown(91);
+    if (this.quizQuestions.length != 10) {
+      this.startTimer();
+    }
     this.howlerService.stopMainSound();
     this.howlerService.toggleTickingSound();
   }
@@ -70,8 +73,11 @@ export class QuizChallengeComponent implements OnInit, OnDestroy {
   }
 
   handleNext(): void {
+    this.stopTimer();
     if (this.currentQuestionIndex < this.quizQuestions.length - 1) {
-      this.currentQuestionIndex = this.currentQuestionIndex + 1;
+      this.currentQuestionIndex++;
+      this.timeLeft = 20;
+      this.startTimer();
     } else {
       this.handleValidateQuiz();
     }
@@ -81,13 +87,36 @@ export class QuizChallengeComponent implements OnInit, OnDestroy {
     this.userChoices[this.currentQuestionIndex] = selectedIndex;
   }
 
-  startCountdown(duration: number) {
-    this.countdown$ = interval(1000).pipe(
-      map((elapsed) => duration - elapsed - 1), // Calcul du temps restant
-      takeWhile((remaining) => remaining >= 0), // Arrêter lorsque le temps atteint 0
-      finalize(() => this.handleValidateQuiz()) // Action une fois terminé
-    );
+  startTimer(): void {
+    this.timerSubscription = interval(1000).subscribe(() => {
+      if (this.timeLeft > 0) {
+        this.timeLeft--;
+      } else {
+        this.handleNext();
+      }
+    });
   }
+
+  stopTimer(): void {
+    if (this.timerSubscription) {
+      this.timerSubscription.unsubscribe();
+      this.timerSubscription = null;
+    }
+  }
+
+  // startCountdown(duration: number) {
+  //   console.log(this.countdown$);
+
+  //   this.stopCountdown();
+
+  //   this.countdown$ = interval(1000).pipe(
+  //     map((elapsed) => duration - elapsed - 1), // Calcul du temps restant
+  //     takeWhile((remaining) => remaining >= 0), // Arrêter lorsque le temps atteint 0
+  //     finalize(() => this.handleNext()) // Action une fois terminé
+  //   );
+
+  //   this.countdownSubscription = this.countdown$.subscribe();
+  // }
 
   handleValidateQuiz(): void {
     this.isUpdatingChoice = true;

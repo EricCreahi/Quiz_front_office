@@ -42,6 +42,8 @@
       <div class="space-x-2">
         <app-button
           class="mt-10"
+          iconName="medal"
+          [showIcon]="true"
           variant="danger"
           label="Quitter le quiz"
           (click)="handleLogout()"
@@ -51,7 +53,7 @@
           variant="primary"
           iconName="medal"
           [showIcon]="true"
-          label="Mon classement"
+          label="Classement"
           routerLink="/rank"
           [disabled]="isLoading"
         ></app-button>
