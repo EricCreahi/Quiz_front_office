@@ -53,6 +53,7 @@ export type UserScore = {
 };
 
 export type UserRanking = {
+  rank?: number;
   matricule: string;
   nom_Pers: string;
   prenoms_Pers: string;
