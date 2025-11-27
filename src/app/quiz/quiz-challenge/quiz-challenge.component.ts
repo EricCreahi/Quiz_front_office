@@ -32,7 +32,7 @@ export class QuizChallengeComponent implements OnInit, OnDestroy {
   currentQuestionIndex: number = 0;
   userChoices: Array<number> = [];
   answeredQuestions: Array<{ index: number; cocherTamponId: number }> = [];
-  timeLeft = 180; // 10 secondes pour chaque question
+  timeLeft = 10; // 10 secondes pour chaque question
   timerSubscription: Subscription | null = null; // Subscription au timer
   showResults: boolean = false;
   isUpdatingChoice: boolean = false;
@@ -76,7 +76,7 @@ export class QuizChallengeComponent implements OnInit, OnDestroy {
     this.stopTimer();
     if (this.currentQuestionIndex < this.quizQuestions.length - 1) {
       this.currentQuestionIndex++;
-      this.timeLeft = 180;
+      this.timeLeft = 10;
       this.startTimer();
     } else {
       this.handleValidateQuiz();

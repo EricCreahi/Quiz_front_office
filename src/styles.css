@@ -14,12 +14,14 @@
   --primary-color: rgb(10, 31, 0);
 }
 
-* {
+*, button {
   cursor: url("assets/fm-cursor.png"), auto;
 }
 
 body {
-  background: linear-gradient(rgb(10, 31, 0, 0.9), rgb(10, 31, 0));
+  background: linear-gradient(rgba(255, 140, 0, 0.556), rgb(25, 80, 0)),
+    url("assets/bg_61_an.jpg");
+  /* background: linear-gradient(rgb(10, 31, 0, 0.9), rgb(10, 31, 0)) ,url("assets/bg_61_an.jpg") ; */
   background-size: cover;
   background-repeat: no-repeat;
   height: 100vh;
@@ -27,6 +29,7 @@ body {
   margin: 0px;
   overflow-x: hidden;
   overflow-y: hidden;
+  /* mix-blend-mode: multiply; */
 }
 
 .font-mont {
@@ -268,4 +271,3 @@ button.toast-close-button {
 ::view-transition-new(root) {
   animation: enter 0.3s ease 0s 1 normal forwards;
 }
-

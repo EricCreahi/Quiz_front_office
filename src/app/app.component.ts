@@ -20,6 +20,7 @@ export class AppComponent implements OnInit, OnDestroy {
   isPlaying: boolean = false;
   readonly Volume = Volume;
   readonly VolumeOff = VolumeOff;
+currentYear = new Date().getFullYear();
 
   constructor(
     private questionService: QuestionService,
