@@ -13,7 +13,7 @@ export class HowlerService {
   constructor() {
     this.sound = new Howl({
       src: [
-        '/assets/intro.mp3',
+        '/assets/djedje.mp3',
         '/assets/kids.mp3',
         '/assets/arcade.mp3',
         '/assets/opener.mp3',

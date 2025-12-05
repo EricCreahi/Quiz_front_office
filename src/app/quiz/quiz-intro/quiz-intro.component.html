@@ -19,16 +19,40 @@
     </div>
 
     <div *ngIf="!showCountdown">
-      <p class="textlg lg:text-4xl text-center">Célébrons les</p>
-      <img src="LOGO-ANNIVERSAIRE.png" class="h-80 mx-auto" alt="logo-60" />
-      <p class="textlg lg:text-4xl text-center">de Fraternité Matin</p>
+      <!-- <p class="textlg lg:text-4xl text-center">Célébrons Fraternité Matin</p> -->
+      <!-- <img src="LOGO-ANNIVERSAIRE.png" class="h-80 mx-auto animate-bounce" alt="logo-60" /> -->
+      <!--Consignes rapides  -->
+      <div class="mb-10">
+       <div
+        class="text-center outline-dashed outline-offset-8 text-xl lg:text-5xl text-clip bg-green-500 w-fit mx-auto px-8 transform -skew-x-12"
+      >
+          AVANT DE COMMENCER
+        </div>
+        <div
+          class="bg-white rounded-md ring-8 ring-green-500 text-center py-4 text-black drop-shadow-lg shadow-lg shadow-green-400"
+        >
+          <ul class="list-disc list-inside space-y-3 text-lg lg:text-2xl">
+            <li>Chaque question vaut un <span class="text-green-600">(1) point.</span></li>
+            <li>
+              Vous avez <span class="text-green-600">dix (10) secondes</span> pour répondre <span class="text-green-600">à chaque question.</span>
+            </li>
+            <li>
+              Une fois le temps écoulé, la question suivante s'affichera
+              automatiquement.
+            </li>
+            <li>Vous ne <span class="text-green-600">pouvez pas revenir</span> aux questions précédentes.</li>
+            <li>À la fin du quiz, votre score s'affichera.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="textlg lg:text-5xl text-center">êtes-vous prêt?</p>
       <div
         *ngIf="!showCountdown"
         class="flex flex-row space-x-2 justify-center mt-10"
       >
         <app-button
           variant="secondary"
-          label="Commencer !!!"
+          label="Oui, Commencer !!!"
           [disabled]="isLoadingQuestionsCocher || isLoadingQuestionsTampon"
           (click)="switchToCountDown()"
         ></app-button>

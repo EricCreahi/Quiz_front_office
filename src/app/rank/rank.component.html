@@ -4,32 +4,32 @@
     <div
       class="text-center outline-dashed outline-offset-8 text-xl lg:text-5xl text-clip bg-green-500 w-fit mx-auto px-8 transform -skew-x-12"
     >
-      CLASSEMENT TOP 10
+      CLASSEMENT TOP 15
     </div>
 
     <div
       *ngIf="usersRanks.length > 0"
       class="grid grid-cols-4 max-w-4xl mx-auto text-xl lg:text-3xl mt-10 gap-y-3"
     >
-      @for (user of usersRanks; track $index) { @if ($index < 10) {
+      @for (user of usersRanks; track $index) { @if ($index < 15) {
 
       <div
         class="-skew-x-12 col-span-3 bg-white text-slate-900 flex flex-row flex-grow"
       >
         <div
           [ngClass]="{
-            'bg-slate-100': user.rank!=null && user.rank > 3,
-            'bg-orange-500': user.rank!=null && user.rank == 1,
-            'bg-gray-400': user.rank!=null && user.rank == 2,
-            'bg-amber-600': user.rank!=null && user.rank == 3,
+            'bg-slate-100 text-slate-500': user.rank!=null && user.rank > 3,
+            'bg-gradient-to-bl from-green-600 to-green-200 text-white': user.rank!=null && user.rank == 1,
+            'bg-gradient-to-b from-gray-600 to-gray-200 text-white': user.rank!=null && user.rank == 2,
+            'bg-gradient-to-br from-amber-600 to-amber-200 text-white': user.rank!=null && user.rank == 3,
           }"
-          class="max-w-max px-3 mr-1 text-white"
+          class="max-w-max px-3 mr-1 text-black"
         >
           {{ user.rank }}
         </div>
         @if (user.rank === 1) {
         <span>
-          <lucide-icon [img]="Crown" size="30" class="mx-auto text-orange-500">
+          <lucide-icon [img]="Crown" size="30" class="mx-auto text-green-500">
           </lucide-icon>
         </span>
         }

@@ -20,13 +20,12 @@ export class AppComponent implements OnInit, OnDestroy {
   isPlaying: boolean = false;
   readonly Volume = Volume;
   readonly VolumeOff = VolumeOff;
-currentYear = new Date().getFullYear();
+  currentYear = new Date().getFullYear();
 
   constructor(
     private questionService: QuestionService,
-    private toastr: ToastrService
-  ) // private howlerService: HowlerService
-  {}
+    private toastr: ToastrService // private howlerService: HowlerService
+  ) {}
 
   ngOnInit(): void {
     this.loadQuestions();
@@ -42,7 +41,17 @@ currentYear = new Date().getFullYear();
       (res) => {
         this.isLoading = false;
         if (res.status === 'succes') {
-          LocalStorageService.setItem('questions', res.data);
+          const questions = res.data;
+          if (questions != null && questions != undefined) {
+            const filteredQuestions: Question[] = questions.filter(
+              (q) => q.estVisible && q.question.estVisible
+            );
+            LocalStorageService.setItem('questions', filteredQuestions);
+            return;
+          }
+
+          // // res.data = filtredQuestions;
+          // LocalStorageService.setItem('questions', res.data);
         } else {
           this.toastr.error(String(res.message), 'Erreur!');
         }

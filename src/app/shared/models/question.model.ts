@@ -1,14 +1,19 @@
 import { QuestionOption } from './question-option.model';
 
+export type QuestionHeader = {
+  questionId: number;
+  libelle_Question: string;
+  numero_Question: number;
+  estVisible: boolean;
+  questionnaireId: number;
+};
 export type Question = {
   sousQuestionId: number;
   libelle_Sous_Question: string;
   numero_Sous_Question: number;
   estVisible: boolean;
-  /**
-   * Correspond à l'ID du questionnaire lié
-   */
   questionId: number;
+  question: QuestionHeader;
   choixes: Array<QuestionOption>;
 };
 

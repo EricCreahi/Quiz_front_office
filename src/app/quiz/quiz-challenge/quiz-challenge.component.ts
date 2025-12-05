@@ -147,6 +147,7 @@ export class QuizChallengeComponent implements OnInit, OnDestroy {
 
   // Charger les questions à afficher
   loadQuestions(): void {
+    console.log('Questions Chargées', this.questions);
     // Id de toutes les questions tampons auquelles repondre
     let idsQuestionsTamponsCocher: Array<number> = [];
     let questionsTampon: Array<Question> = [];
@@ -165,7 +166,7 @@ export class QuizChallengeComponent implements OnInit, OnDestroy {
 
     this.quizQuestions = selectQuestions(
       this.questions,
-      20 - idsQuestionsTamponsCocher.length,
+      10 - idsQuestionsTamponsCocher.length,
       idsQuestionsTamponsCocher
     );
   }
